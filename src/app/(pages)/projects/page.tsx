@@ -57,7 +57,7 @@ export default async function Projects() {
 
         <Paragraph
           title={paragraphContent.title}
-          text={paragraphContent.body}
+          body={paragraphContent.body}
           image={paragraphContent.image}
           isReversed={true}
         />
@@ -68,7 +68,11 @@ export default async function Projects() {
                 sections.map((section, index) => (
                   <Section
                     key={index}
-                    section={section}
+                    section={{
+                      ...section,
+                      id: index + 1,
+                      quote: section.quote ? true : false, // Convert to boolean type
+                    }}
                     isReversed={index % 2 === 1}
                   />
                 ))
