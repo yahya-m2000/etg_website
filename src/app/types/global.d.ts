@@ -4,14 +4,16 @@ declare global {
   // PAGE PROPS
 
   type Section = {
-    title: string;
-    subtitle: string;
-    body: Document;
-    callToAction?: string;
-    quote?: string;
+    id: number;
+    title?: string; // Make title optional if not every section has it
+    subtitle?: string;
+    body: any;
+    quote?: boolean; // Updated to match the expected boolean type
     author?: string;
     image?: string;
+    callToActions?: CallToAction[];
   };
+  
   
   type SectionProps = {
     section: {
@@ -23,7 +25,7 @@ declare global {
       author?: string;
       image?: string;
     };
-    isReversed: boolean;
+    isReversed?: boolean;
   };
   
   

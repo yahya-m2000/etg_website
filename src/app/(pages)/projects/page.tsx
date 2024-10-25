@@ -69,9 +69,13 @@ export default async function Projects() {
                   <Section
                     key={index}
                     section={{
-                      ...section,
                       id: index + 1,
-                      quote: section.quote ? true : false, // Convert to boolean type
+                      title: section.title ?? "Default Title",
+                      body: section.body,
+                      quote: section.quote ? true : false,
+                      author: section.author,
+                      image: section.image,
+                      callToActions: section.callToActions,
                     }}
                     isReversed={index % 2 === 1}
                   />

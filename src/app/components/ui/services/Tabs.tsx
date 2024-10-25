@@ -28,10 +28,8 @@ const ServiceTabs: React.FC<{ services: Section[] }> = ({ services }) => {
       </div>
 
       <Section
-        // isReversed={activeTab % 2 === 0}
         section={{
-          title: services[activeTab].title,
-          subtitle: "",
+          title: services[activeTab].title ?? "Default Title",
           body: services[activeTab].body,
           image: services[activeTab].image,
           id: 0,

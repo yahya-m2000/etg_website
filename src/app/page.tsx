@@ -83,8 +83,15 @@ export default async function Home() {
               sections.map((section, index) => (
                 <Section
                   key={index}
-                  section={section}
-                  isReversed={null} // Alternate layout for sections
+                  section={{
+                    id: index + 1,
+                    title: section.title ?? "Default Title",
+                    body: section.body,
+                    quote: section.quote ? true : false,
+                    author: section.author,
+                    image: section.image,
+                    callToActions: section.callToActions,
+                  }}
                 />
               ))
             ) : (

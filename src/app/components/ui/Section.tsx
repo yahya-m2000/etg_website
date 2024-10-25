@@ -17,14 +17,13 @@ type SectionProps = {
   section: {
     id: number;
     title: string;
-    subtitle?: string;
     body: any;
     quote?: boolean;
     author?: string;
     image?: string;
     callToActions?: CallToAction[];
   };
-  isReversed: boolean;
+  isReversed?: boolean;
 };
 
 const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
