@@ -5,9 +5,6 @@ import Logo from "./Logo";
 import DrawerToggle from "./DrawerToggle";
 import MobileDrawer from "./MobileDrawer";
 import DesktopDropdown from "./DesktopDropdown";
-import NavItem from "./NavItem";
-
-import Link from "next/link";
 
 interface HeaderProps {
   isDark?: boolean;

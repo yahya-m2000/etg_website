@@ -51,6 +51,7 @@ declare global {
   };
 
   interface NavigationTab {
+    id: any;
     title: string;
     slug: string;
     tabs?: string[];
