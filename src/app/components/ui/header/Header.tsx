@@ -15,6 +15,7 @@ interface HeaderProps {
     title: string;
     slug: string;
     tabs?: string[];
+    id: number;
   }[];
 }
 

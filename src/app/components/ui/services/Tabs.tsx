@@ -34,6 +34,7 @@ const ServiceTabs: React.FC<{ services: Section[] }> = ({ services }) => {
           subtitle: "",
           body: services[activeTab].body,
           image: services[activeTab].image,
+          id: 0,
         }}
         isReversed={false}
       />
