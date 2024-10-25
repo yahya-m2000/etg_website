@@ -13,6 +13,20 @@ declare global {
     image?: string;
   };
   
+  type SectionProps = {
+    section: {
+      id: number; // Add id property to identify the section
+      title: string;
+      subtitle?: string;
+      body: any; // Adjust this type according to your actual data
+      quote?: string;
+      author?: string;
+      image?: string;
+    };
+    isReversed: boolean;
+  };
+  
+  
   type PageContent = {
     form: FormProps | undefined;
     slug: string;
@@ -84,6 +98,7 @@ declare global {
     dropdownRef: React.RefObject<HTMLDivElement>;
     isMobile: boolean;
     selectedNav: number | null;
+    setSelectedNav: any;
     handleNavClick: (index: number) => void;
     isDark: boolean;
   }
@@ -175,7 +190,7 @@ declare global {
 
   type ParagraphProps = {
     title: string;
-    text: string;
+    body: string;
     image?: string;
     buttonUrl?: string;
     isReversed?: boolean;

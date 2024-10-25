@@ -1,79 +1,185 @@
+"use client";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
 import Image from "next/image";
+import clsx from "clsx";
+import { useEffect, useRef } from "react";
+import { getTextSizeClass } from "@/lib/common/src/utils";
+
+const text = "text-black font-assistant";
+
+type CallToAction = {
+  label: string;
+  url: string;
+};
 
 type SectionProps = {
   section: {
+    id: number;
     title: string;
     subtitle?: string;
-    body: any; // Adjust this type according to your actual data
-    quote?: string;
+    body: any;
+    quote?: boolean;
     author?: string;
     image?: string;
+    callToActions?: CallToAction[];
   };
   isReversed: boolean;
 };
 
 const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
-  const isRichText = section.body?.nodeType === "document"; // Check if body is rich text
+  const isRichText = section.body?.nodeType === "document";
+  const hasImage = !!section.image;
+  const isHighlighted = section.id === 1;
+  const isQuote = section.quote === true;
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (backdropRef.current && imageRef.current) {
+        const scrollPosition = window.scrollY;
+        backdropRef.current.style.transform = `translateY(${
+          scrollPosition * 0.2
+        }px)`;
+        imageRef.current.style.transform = `translateY(${
+          scrollPosition * -0.1
+        }px)`;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div
-      className={`flex flex-wrap my-[25px] flex-col items-center justify-between md:items-center ${
-        isReversed ? "md:flex-row-reverse" : "md:flex-row"
-      }`}
+    <section
+      className={clsx(
+        !isQuote &&
+          "flex flex-col-reverse lg:flex-row lg:items-stretch lg:justify-between mb-8 py-12 lg:py-16",
+        isReversed && "lg:flex-row-reverse",
+        isHighlighted && "mb-16",
+        isQuote && "flex flex-col items-center justify-center text-center mb-16"
+      )}
     >
-      {/* Section Image */}
-      {section.image && (
-        <div
-          className={`w-full md:w-1/2 mb-4 md:mb-0 ${
-            isReversed ? "md:pl-[6vw]" : "md:pr-[6vw]"
-          }`} // Adjust left or right margin for image
-        >
-          <Image
-            src={section.image}
-            alt={section.title}
-            width={2000}
-            height={2000}
-          />
+      {hasImage && isQuote && (
+        <div className="flex flex-1 justify-center align-middle mb-2 order-first">
+          <div ref={imageRef}>
+            <Image
+              src={section.image as string}
+              alt={section.title}
+              width={150}
+              height={150}
+              objectFit="cover"
+              className={clsx(
+                "transition-transform duration-500 ease-in-out transform group-hover:translate-y-[-10px] rounded-full w-[150px] h-[150px]"
+              )}
+            />
+          </div>
         </div>
       )}
 
-      {/* Section Content */}
-      <div
-        className={`w-full md:w-1/2 min-w-0 ${
-          isReversed ? "md:pr-[6vw]" : "md:px-[6vw]"
-        }`} // Adjust left or right margin for text and ensure it wraps
-      >
+      <div className="flex-[0.50] w-full lg:pr-10 ">
         {/* Section Title and Subtitle */}
-        <h2 className="font-assistant text-4xl font-bold mb-4">
+        <h2
+          className={clsx(
+            getTextSizeClass(isHighlighted, "text-2xl"),
+            "font-semibold mb-2",
+            text
+          )}
+        >
           {section.title}
         </h2>
-        {section.subtitle && (
-          <h3 className="font-assistant text-2xl mb-4">{section.subtitle}</h3>
-        )}
 
         {/* Section Body */}
-        <div className="section-body">
-          {isRichText
-            ? documentToReactComponents(section.body, richTextRenderOptions) // Render rich text
-            : section.body}{" "}
-          {/* Render plain text */}
+        <div
+          className={clsx(
+            "flex flex-col my-10 lg:my-0",
+            isHighlighted && "bg-opacity-90"
+          )}
+        >
+          {isRichText ? (
+            documentToReactComponents(section.body, richTextRenderOptions)
+          ) : isQuote ? (
+            <>
+              <blockquote
+                className={clsx(
+                  "italic border-l-4 pl-4 text-primary border-primary",
+                  getTextSizeClass(isHighlighted, "text-lg"),
+                  "font-regular mb-2 mt-4",
+                  text
+                )}
+              >
+                {section.body}
+              </blockquote>
+              <h6
+                className={clsx(
+                  getTextSizeClass(isHighlighted, "text-xl"),
+                  "font-semibold mb-2 mt-4",
+                  text
+                )}
+              >
+                — {section.author}
+              </h6>
+            </>
+          ) : (
+            <p
+              className={clsx(getTextSizeClass(isHighlighted, "text-lg"), text)}
+            >
+              {section.body}
+            </p>
+          )}
         </div>
 
-        {/* Section Quote */}
-        {section.quote && (
-          <blockquote className="font-assistant italic text-gray-600 mt-4">
-            {section.quote}
-          </blockquote>
-        )}
-
-        {/* Author */}
-        {section.author && (
-          <p className="mt-4 text-right text-gray-700">{section.author}</p>
+        {section.callToActions && section.callToActions.length > 0 && (
+          <div className="flex flex-wrap gap-4 mt-6">
+            {section.callToActions.map((cta, index) => (
+              <a
+                key={index}
+                href={cta.url}
+                className="px-6 py-3 bg-secondary text-white hover:bg-primary transition-colors duration-300"
+              >
+                {cta.label}
+              </a>
+            ))}
+          </div>
         )}
       </div>
-    </div>
+
+      {hasImage && !isQuote && (
+        <div
+          className={clsx(
+            "relative w-full h-[300px] lg:h-auto lg:flex-[0.50] group"
+          )}
+        >
+          <div
+            ref={imageRef}
+            className="absolute inset-0 w-[40vw] h-[90%] mx-auto my-auto overflow-hidden"
+          >
+            <Image
+              src={section.image ?? ""}
+              alt={section.title}
+              layout="fill"
+              objectFit="cover"
+              className={clsx(
+                "transition-transform duration-500 ease-in-out transform group-hover:translate-y-[-10px]"
+              )}
+            />
+            {/* Hover overlay */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-end pb-10 justify-center bg-opacity-10 bg-black">
+              <p
+                className={clsx(
+                  getTextSizeClass(isHighlighted, "text-lg"),
+                  "text-white"
+                )}
+              >
+                {isHighlighted ? "Highlighted Section" : "Placeholder Text"}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 };
 

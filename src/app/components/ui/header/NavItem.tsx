@@ -16,17 +16,15 @@ const NavItem: React.FC<NavItemProps> = ({
       "font-assistant font-medium text-lg cursor-pointer transition-all duration-300",
       isInDrawer
         ? "text-black mb-[10px] px-4 text-xl bg-gray-100 rounded-md hover:bg-gray-200"
-        : "lg:mr-[2vw] mt-[20px] ",
+        : "lg:mr-[2vw] mt-[20px]",
       // hover-underline
 
       // Conditional text color classes
-      isSelected
-        ? "text-primary"
-        : // : dropdownOpen
-        // ? "text-black"
-        isDark
-        ? "text-white"
-        : "text-black"
+      // isSelected
+      //   ? "text-primary"
+      //   : // : dropdownOpen
+      //   // ? "text-black"
+      isDark ? "text-white" : "text-black"
     )}
   >
     {label}

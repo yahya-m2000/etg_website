@@ -3,6 +3,7 @@ import fallbackImage from "@/assets/images/fallback_image.jpg";
 
 import { formatDate } from "@/lib/common/src/utils";
 import { useMemo } from "react";
+import Link from "next/link";
 
 const HeroImage: React.FC<InsightProps> = ({
   title,
@@ -11,6 +12,8 @@ const HeroImage: React.FC<InsightProps> = ({
   author,
   date,
   tags,
+  slug,
+  basePath,
 }) => {
   // Memoize the formatted date to avoid recalculating on each render
   const formattedDate = useMemo(() => (date ? formatDate(date) : null), [date]);
@@ -27,7 +30,7 @@ const HeroImage: React.FC<InsightProps> = ({
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-500 to-transparent z-10 backdrop-brightness-50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-red-500 to-transparent z-10 backdrop-brightness-50" />
 
       <div className="main flex absolute min-h-[500px] items-end lg:w-[75vw] z-20">
         <div>
@@ -37,7 +40,9 @@ const HeroImage: React.FC<InsightProps> = ({
               {Array.isArray(tags) ? tags.join(", ") : tags}
             </p>
           )}
-          <h1 className="title text-white ">{title}</h1>
+          <Link href={`${basePath}/${slug}`}>
+            <h1 className="title text-white hover:underline">{title}</h1>
+          </Link>
           {subtitle && (
             <p className="text-xl font-assistant text-white">{subtitle}</p>
           )}

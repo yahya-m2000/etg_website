@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import clsx from "clsx";
+import { getTextSizeClass } from "@/lib/common/src/utils";
 
 const Paragraph: React.FC<ParagraphProps> = ({
   title,
-  text,
+  body,
   image,
   isReversed = false,
   isCentered = false,
@@ -12,7 +13,7 @@ const Paragraph: React.FC<ParagraphProps> = ({
 }) => {
   return (
     <div
-      className={clsx("main py-[100px]  flex flex-wrap  h-auto", {
+      className={clsx("main py-0 flex flex-wrap h-auto", {
         "flex-col": buttonUrl && isCentered,
         "lg:flex-row-reverse": isReversed,
         "lg:flex-row": !isReversed,
@@ -21,16 +22,14 @@ const Paragraph: React.FC<ParagraphProps> = ({
     >
       {/* Text Section */}
       <div
-        className={clsx("flex flex-col  flex-[1] justify-center", {
-          "lg:ml-12 ml-0": isReversed && !isCentered,
-          "lg:mr-12 ml-0": !isReversed && !isCentered,
+        className={clsx("flex flex-col flex-[1] justify-center lg:mr-12 ml-0", {
           "lg:mx-auto mx-0": isCentered,
           "md:flex-[0.66]": image,
         })}
       >
         <h2
           className={clsx(
-            "font-extrabold uppercase font-assistant text-xl text-subtitle mb-4",
+            getTextSizeClass(true, "font-semibold text-3xl text-subtitle mb-4"),
             {
               "text-center": isCentered,
             }
@@ -39,11 +38,17 @@ const Paragraph: React.FC<ParagraphProps> = ({
           {title}
         </h2>
         <p
-          className={clsx("font-assistant md:text-lg text-base text-black ", {
-            "mx-auto md:max-w-[50vw] ": isCentered, // Center text with max width control
-          })}
+          className={clsx(
+            getTextSizeClass(
+              true,
+              "font-assistant md:text-lg text-lg text-black"
+            ),
+            {
+              "mx-auto md:max-w-[50vw]": isCentered, // Center text with max width control
+            }
+          )}
         >
-          {text}
+          {body}
         </p>
       </div>
 

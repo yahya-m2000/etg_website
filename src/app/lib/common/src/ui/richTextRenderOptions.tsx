@@ -11,10 +11,17 @@ export const richTextRenderOptions = {
       <h2 className="font-assistant text-3xl font-semibold mb-3">{children}</h2>
     ),
     [BLOCKS.HEADING_3]: (_node: Node, children: React.ReactNode) => (
-      <h2 className="font-assistant text-2xl font-semibold mb-3">{children}</h2>
+      <h3 className="font-assistant text-5xl lg:text-6xl font-light text-slate-700 mb-3">
+        {children}
+      </h3>
+    ),
+    [BLOCKS.HEADING_4]: (_node: Node, children: React.ReactNode) => (
+      <h4 className="font-assistant text-3xl lg:text-4xl font-light text-slate-700 mb-3">
+        {children}
+      </h4>
     ),
     [BLOCKS.PARAGRAPH]: (_node: Node, children: React.ReactNode) => (
-      <p className="font-assistant lg:text-lg text-base leading-relaxed mb-4">
+      <p className="font-assistant lg:text-xl text-lg leading-relaxed  text-slate-500 mb-4">
         {children}
       </p>
     ),
@@ -30,7 +37,7 @@ export const richTextRenderOptions = {
       );
     },
     [BLOCKS.QUOTE]: (_node: Node, children: React.ReactNode) => (
-      <blockquote className="text-pink-700 font-semibold border-l-4 border-pink-700 pl-4 md:w-1/2 float-start  pr-[2vh] ">
+      <blockquote className="text-pink-700 font-semibold border-l-4 border-pink-700  float-start  pr-[2vh] ">
         {children}
       </blockquote>
     ),

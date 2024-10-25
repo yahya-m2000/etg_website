@@ -56,7 +56,7 @@ export default async function Page() {
         <div className="">
           <Paragraph
             title={paragraphContent.title}
-            text={paragraphContent.body}
+            body={paragraphContent.body}
             image={paragraphContent.image}
             isReversed={true}
           />

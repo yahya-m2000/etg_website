@@ -163,12 +163,13 @@ export async function fetchNavigation(contentType: string) {
   try {
     const entries = await client.getEntries({
       content_type: contentType,
-      select: ["fields.title", "fields.tabs", "fields.slug"],
+      select: ["fields.title", "fields.tabs", "fields.slug", "fields.id"],
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return entries.items.map((item: any) => {
       return {
+        id: item.fields.id,
         title: item.fields.title,
         slug: item.fields.slug,
         tabs: item.fields.tabs,

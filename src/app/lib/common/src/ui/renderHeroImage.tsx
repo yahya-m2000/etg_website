@@ -10,6 +10,7 @@ export const renderHeroImage = ({
   date,
   body,
   basePath,
+  slug,
 }: InsightProps) => {
   return (
     <HeroImage
@@ -21,6 +22,7 @@ export const renderHeroImage = ({
       date={date}
       body={body}
       basePath={basePath}
+      slug={slug}
     />
   );
 };
