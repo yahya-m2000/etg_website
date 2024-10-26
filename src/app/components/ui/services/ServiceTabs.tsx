@@ -13,13 +13,13 @@ const ServiceTabs: React.FC<{ services: Section[] }> = ({ services }) => {
   return (
     <div className="main">
       {/* Tabs for each service */}
-      <div className="flex justify-between py-0 border-b border-black ">
+      <div className="flex justify-between py-0 border-b border-grey ">
         {services.map((service, index) => (
           <button
             key={index}
             onClick={() => handleTabChange(index)}
             className={`font-assistant px-4 py-2 rounded-md ${
-              activeTab === index ? "text-black font-bold" : "text-gray-500"
+              activeTab === index ? "text-primary font-bold" : "text-gray-500"
             }`}
           >
             {service.title}

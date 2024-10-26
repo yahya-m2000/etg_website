@@ -17,9 +17,9 @@ const ContentTabs: React.FC<ContentTabsProps> = ({ aboutUsData }) => {
   const [selectedTab, setSelectedTab] = useState<string>(aboutUsData[0]?.title);
 
   return (
-    <div className="flex min-h-[50vh] flex-row items-center">
+    <div className="flex h-auto flex-row items-center">
       {/* Title Tabs */}
-      <div className="w-1/4 border-r border-gray-200">
+      <div className="w-1/4 border-r border-gray">
         {aboutUsData.map((section, index) => (
           <div
             key={index}
@@ -29,7 +29,7 @@ const ContentTabs: React.FC<ContentTabsProps> = ({ aboutUsData }) => {
               "p-4 cursor-pointer",
               selectedTab === section.title
                 ? "text-primary font-bold"
-                : "text-gray-500",
+                : "text-gray",
               "hover:text-primary"
             )}
             onClick={() => setSelectedTab(section.title)}

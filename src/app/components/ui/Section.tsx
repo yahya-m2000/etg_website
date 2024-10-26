@@ -55,7 +55,7 @@ const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
     <section
       className={clsx(
         !isQuote &&
-          "flex flex-col-reverse lg:flex-row lg:items-stretch lg:justify-between mb-8 py-12 lg:py-16",
+          "flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between mb-8 py-12 lg:py-16 lg:align-middle",
         isReversed && "lg:flex-row-reverse",
         isHighlighted && "mb-16",
         isQuote && "flex flex-col items-center justify-center text-center mb-16"
@@ -83,7 +83,7 @@ const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
         <h2
           className={clsx(
             getTextSizeClass(isHighlighted, "text-2xl"),
-            "font-semibold mb-2",
+            "font-semibold mb-2 text-primary",
             text
           )}
         >
@@ -148,7 +148,7 @@ const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
       {hasImage && !isQuote && (
         <div
           className={clsx(
-            "relative w-full h-[300px] lg:h-auto lg:flex-[0.50] group"
+            "relative w-full h-[300px] lg:h-auto lg:min-h-[500px] lg:flex-[0.50] group"
           )}
         >
           <div

@@ -44,40 +44,41 @@ export default async function Projects() {
 
   return (
     <Layout>
-      <main>
-        <Header isDark={true} navigationTabs={navigationTabs} />
+      <Header isDark={true} navigationTabs={navigationTabs} />
 
-        <HeroImage
-          title={title || "Projects"}
-          body={subtitle || ""}
-          heroImage={heroImage || ""}
-          date={""}
-          basePath={""}
-        />
-
-        <Paragraph
-          title={paragraphContent.title}
-          body={paragraphContent.body}
-          image={paragraphContent.image}
-          isReversed={true}
-        />
-        <div className="main flex flex-1 flex-col-reverse md:flex-row bg-white border-b border-b-slate-300 border-[1px]">
+      <HeroImage
+        title={title || "Projects"}
+        body={subtitle || ""}
+        heroImage={heroImage || ""}
+        date={""}
+        basePath={""}
+      />
+      <main className="">
+        <div className="main px-0">
+          <Paragraph
+            title={paragraphContent.title}
+            body={paragraphContent.body}
+            image={paragraphContent.image}
+            isReversed={true}
+          />
+        </div>
+        <div className="main py-0 flex flex-1 flex-col-reverse md:flex-row bg-white border-b border-b-slate-300 border-[1px]">
           <div className="flex-[1] h-full">
-            <div className="sections-container">
+            <div>
               {sections && sections.length > 0 ? (
                 sections.map((section, index) => (
                   <Section
                     key={index}
                     section={{
-                      id: index + 1,
-                      title: section.title ?? "Default Title",
+                      id: index + 2,
+                      title: section.title ?? "",
                       body: section.body,
                       quote: section.quote ? true : false,
                       author: section.author,
                       image: section.image,
                       callToActions: section.callToActions,
                     }}
-                    isReversed={index % 2 === 1}
+                    isReversed={false}
                   />
                 ))
               ) : (
@@ -86,12 +87,11 @@ export default async function Projects() {
             </div>
           </div>
         </div>
-
-        {/* Pass the insights to the client-side ProjectsClient */}
-        {/* <SearchProjects insights={insights} /> */}
-
-        <Footer />
       </main>
+      {/* Pass the insights to the client-side ProjectsClient */}
+      {/* <SearchProjects insights={insights} /> */}
+
+      <Footer />
     </Layout>
   );
 }

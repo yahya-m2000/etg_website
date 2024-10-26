@@ -5,7 +5,7 @@ import {
   fetchPageContent,
   fetchParagraph,
 } from "@/lib/api/src/contentful";
-import ServiceTabs from "@/components/ui/services/Tabs";
+import ServiceTabs from "@/components/ui/services/ServiceTabs";
 
 export default async function Page() {
   const navigationTabs = await fetchNavigation("navigation");
@@ -41,32 +41,29 @@ export default async function Page() {
 
   return (
     <Layout>
-      <main className="hide-scrollbar ">
-        <Header isDark={true} navigationTabs={navigationTabs} />
-
-        <HeroImage
-          title={title}
-          body={""}
-          date={""}
-          heroImage={heroImage}
-          subtitle={subtitle}
-          basePath={""}
-        />
+      <Header isDark={true} navigationTabs={navigationTabs} />
+      <HeroImage
+        title={title}
+        body={""}
+        date={""}
+        heroImage={heroImage}
+        subtitle={subtitle}
+        basePath={""}
+      />
+      <main className="main px-0">
         {/* Section to display the paragraph content */}
-        <div className="">
+        <div>
           <Paragraph
             title={paragraphContent.title}
             body={paragraphContent.body}
-            image={paragraphContent.image}
             isReversed={true}
           />
         </div>
 
         {/* Pass the sections data to ServiceTabs */}
         <ServiceTabs services={servicesSections} />
-
-        <Footer isDark={true} />
       </main>
+      <Footer />
     </Layout>
   );
 }

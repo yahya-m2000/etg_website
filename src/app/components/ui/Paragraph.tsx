@@ -13,7 +13,7 @@ const Paragraph: React.FC<ParagraphProps> = ({
 }) => {
   return (
     <div
-      className={clsx("main py-0 flex flex-wrap h-auto", {
+      className={clsx("main flex flex-wrap h-auto", {
         "flex-col": buttonUrl && isCentered,
         "lg:flex-row-reverse": isReversed,
         "lg:flex-row": !isReversed,
