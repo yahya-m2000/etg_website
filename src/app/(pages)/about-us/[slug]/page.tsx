@@ -124,7 +124,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 sections.map((section, index) => (
                   <Section
                     key={index}
-                    section={section}
+                    section={{
+                      ...section,
+                      id: index + 1,
+                      quote: section.quote ? true : false, // Convert to boolean type
+                    }}
                     isReversed={index % 2 === 1}
                   />
                 ))}

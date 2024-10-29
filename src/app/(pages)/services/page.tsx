@@ -5,7 +5,7 @@ import {
   fetchPageContent,
   fetchParagraph,
 } from "@/lib/api/src/contentful";
-import ServiceTabs from "@/components/ui/services/Tabs";
+import ServiceTabs from "@/components/ui/services/ServiceTabs";
 
 export default async function Page() {
   const navigationTabs = await fetchNavigation("navigation");
@@ -19,9 +19,7 @@ export default async function Page() {
       pageContentData.find((page: PageContent) => page.slug === "services") ||
       null;
   }
-  // Fetch paragraph content
 
-  // Ensure you are looking for the right slug or page identifier
   const paragraphContent = paragraphData?.find(
     (page) => page.slug === "services"
   ) || {
@@ -31,42 +29,35 @@ export default async function Page() {
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?fit=crop&w=600&q=80",
   };
 
-  // Set default values or populate from the content fetched
   const title = content?.title || "Services";
-  const subtitle = content?.subtitle || "Our Services Subtitle";
-  const heroImage = content?.heroImage || "/default-hero-image.jpg"; // Provide fallback image
-
-  // Extract sections from content (services data)
+  const heroImage = content?.heroImage || "/default-hero-image.jpg";
   const servicesSections = content?.sections || [];
 
   return (
     <Layout>
-      <main className="hide-scrollbar ">
-        <Header isDark={true} navigationTabs={navigationTabs} />
-
-        <HeroImage
-          title={title}
-          body={""}
-          date={""}
-          heroImage={heroImage}
-          subtitle={subtitle}
-          basePath={""}
-        />
+      <Header isDark={true} navigationTabs={navigationTabs} />
+      <HeroImage
+        title={title}
+        body={""}
+        date={""}
+        heroImage={heroImage}
+        subtitle={""}
+        basePath={""}
+      />
+      <main className="main px-0">
         {/* Section to display the paragraph content */}
-        <div className="">
+        <div>
           <Paragraph
             title={paragraphContent.title}
-            text={paragraphContent.body}
-            image={paragraphContent.image}
+            body={paragraphContent.body}
             isReversed={true}
           />
         </div>
 
         {/* Pass the sections data to ServiceTabs */}
         <ServiceTabs services={servicesSections} />
-
-        <Footer isDark={true} />
       </main>
+      <Footer />
     </Layout>
   );
 }

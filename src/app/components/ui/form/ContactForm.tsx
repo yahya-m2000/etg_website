@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
+import { getTextSizeClass } from "@/lib/common/src/utils";
 
 const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
   const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
@@ -110,21 +111,59 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
       {/* <h2 className="text-2xl font-bold mb-4">{form.title}</h2> */}
 
       {/* Render rich text for description */}
-      <div className="mb-4 flex-[0.33]">
+      {/* <div className={getTextSizeClass(false, "mb-4 ")}>
         {documentToReactComponents(form.description, richTextRenderOptions)}
+      </div> */}
+
+      <div className="flex-[0.33]">
+        <h3
+          className={getTextSizeClass(
+            true,
+            "text-4xl font-assistant font-regular"
+          )}
+        >
+          Our locations
+        </h3>
+        <p
+          className={getTextSizeClass(
+            true,
+            "text-xl font-assistant font-light"
+          )}
+        >
+          UK Office 128 City Road, London, EC1V 2NX
+          admin@theeeasterntradegroup.com
+        </p>
+
+        <p
+          className={getTextSizeClass(
+            true,
+            "text-xl font-assistant font-light"
+          )}
+        >
+          China Office Nanhai District, Foshan City Star Harbor International
+          Plaza, Building C admin.china@theeeasterntradegroup.com
+        </p>
       </div>
       <div className="p-6 border-gray-300 flex-[0.66] transition-all duration-300">
         {generalError && (
-          <div className="text-red-500 font-inriaSerif text-sm mb-4">
+          <div
+            className={getTextSizeClass(
+              false,
+              "text-red-500 font-assistant text-sm mb-4"
+            )}
+          >
             {generalError}
           </div>
         )}
         <form onSubmit={handleSubmit}>
           {form.formFields?.map((field, index) => (
-            <div key={index} className="mb-4">
+            <div key={index} className={getTextSizeClass(false, "mb-4")}>
               <label
                 htmlFor={`form-field-${field.id}`}
-                className="block font-inriaSerif text-sm font-medium text-gray-700"
+                className={getTextSizeClass(
+                  false,
+                  "block font-assistant text-md font-medium "
+                )}
               >
                 {field.label}
               </label>
@@ -139,7 +178,7 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
                   }
                   onChange={handleChange}
                   required
-                  className={`mt-1 font-inriaSerif block w-full p-2 border-b hover:bg-gray-50 transition-colors duration-300 border-gray-300 focus:outline-none focus:border-primary-light focus:bg-gray-50 focus:ring-[0.5px] focus:ring-primary ${
+                  className={`mt-1 font-assistant block w-full p-2 border-b hover:bg-gray-50 transition-colors duration-300 border-gray-300 focus:outline-none focus:border-primary-light focus:bg-gray-50 focus:ring-[0.5px] focus:ring-primary ${
                     formErrors[field.label.toLowerCase().replace(" ", "-")]
                       ? "border-red-500"
                       : ""
@@ -157,7 +196,7 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
                     ""
                   }
                   onChange={handleChange}
-                  className={`mt-1 font-inriaSerif block w-full p-2 border-b hover:bg-gray-50 transition-colors duration-300 border-gray-300 focus:outline-none focus:border-primary-light focus:bg-gray-50 focus:ring-[0.5px] focus:ring-primary ${
+                  className={`mt-1 font-assistant block w-full p-2 border-b hover:bg-gray-50 transition-colors duration-300 border-gray-300 focus:outline-none focus:border-primary-light focus:bg-gray-50 focus:ring-[0.5px] focus:ring-primary ${
                     formErrors[field.label.toLowerCase().replace(" ", "-")]
                       ? "border-red-500"
                       : ""
@@ -166,7 +205,12 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
               )}
 
               {formErrors[field.label.toLowerCase().replace(" ", "-")] && (
-                <p className="text-red-500 font-assistant text-sm mt-1">
+                <p
+                  className={getTextSizeClass(
+                    false,
+                    "text-red-500 font-assistant text-sm mt-1"
+                  )}
+                >
                   {formErrors[field.label.toLowerCase().replace(" ", "-")]}
                 </p>
               )}
@@ -174,13 +218,21 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
           ))}
           <button
             type="submit"
-            className="mt-4 font-inriaSerif text-primary px-4 py-2 rounded-md"
+            className={getTextSizeClass(
+              false,
+              "px-6 py-3 bg-secondary text-white hover:bg-primary transition-colors duration-300"
+            )}
           >
             {form.submitText}
           </button>
         </form>
         {isSubmitted && (
-          <div className="mt-4 font-inriaSerif text-green-600">
+          <div
+            className={getTextSizeClass(
+              false,
+              "mt-4 font-assistant text-green-600"
+            )}
+          >
             {documentToReactComponents(form.successMessage)}
           </div>
         )}

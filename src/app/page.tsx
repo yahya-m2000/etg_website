@@ -1,20 +1,22 @@
 import { Footer, Header, Layout, Paragraph } from "@/components/ui";
-import { FeaturedInsights, TrendingCarousel } from "@/components/pages/home";
+// import { FeaturedInsights, TrendingCarousel } from "@/components/pages/home";
 import { renderHeroImage } from "./lib/common/src/ui/renderHeroImage";
 import { placeholderHeroImage } from "./assets/data/placeholderHeroImage";
+import Section from "@/components/ui/Section";
 import {
   fetchInsights,
   fetchInsightBySlug,
   fetchNavigation,
   fetchPageContent,
 } from "@/lib/api/src/contentful";
+import { homeData } from "./assets/data/home";
 
 export default async function Home() {
-  const [insights, navigationTabs, aboutUsContent] = await Promise.all([
-    fetchInsights("article").then((res) => res || []), // Fallback to an empty array if null or undefined
+  const [insights, navigationTabs, content] = await Promise.all([
+    fetchInsights("article").then((res) => res || []),
     fetchNavigation("navigation"),
     fetchPageContent("pageContent").then((pages) =>
-      pages?.find((page) => page.slug === "about-us")
+      pages?.find((page) => page.slug === "home")
     ),
   ]);
 
@@ -29,12 +31,14 @@ export default async function Home() {
     );
   }
 
+  // const sections = content?.sections || [];
+  const sections = homeData;
+
   // Rendering
   return (
     <Layout>
       <main>
         <Header isDark={true} navigationTabs={navigationTabs} />
-
         {renderHeroImage(
           featuredHeroImage
             ? {
@@ -45,27 +49,34 @@ export default async function Home() {
                 author: featuredHeroImage[0].author,
                 date: featuredHeroImage[0].date,
                 body: "",
-                basePath: "",
+                basePath: featuredHeroImage[0].basePath,
+                slug: featuredHeroImage[0].slug,
               }
             : placeholderHeroImage
         )}
 
-        <FeaturedInsights insights={insights} />
+        <div className="main">
+          {sections.length > 0 ? (
+            sections.map((section, index) => (
+              <Section
+                key={index}
+                section={{
+                  id: index + 1,
+                  title: section.title ?? "",
+                  body: section.body,
+                  quote: section.quote ? true : false,
+                  author: section.author,
+                  image: section.image,
+                  callToActions: section.callToActions,
+                }}
+              />
+            ))
+          ) : (
+            <p>No sections available.</p>
+          )}
 
-        {aboutUsContent ? (
-          <Paragraph
-            title={aboutUsContent.title}
-            text={aboutUsContent.subtitle}
-            buttonUrl="/contact"
-            image={
-              aboutUsContent.heroImage || "https://via.placeholder.com/600x400"
-            }
-          />
-        ) : (
-          <p>About Us content not available.</p>
-        )}
-
-        <TrendingCarousel />
+          {/* <TrendingCarousel /> */}
+        </div>
         <Footer isDark={false} />
       </main>
     </Layout>

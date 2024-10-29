@@ -5,9 +5,6 @@ import Logo from "./Logo";
 import DrawerToggle from "./DrawerToggle";
 import MobileDrawer from "./MobileDrawer";
 import DesktopDropdown from "./DesktopDropdown";
-import NavItem from "./NavItem";
-
-import Link from "next/link";
 
 interface HeaderProps {
   isDark?: boolean;
@@ -15,6 +12,7 @@ interface HeaderProps {
     title: string;
     slug: string;
     tabs?: string[];
+    id: number;
   }[];
 }
 
@@ -124,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({ isDark = false, navigationTabs }) => {
             isDark={isDark}
           />
         )}
-        {/* <DesktopDropdown
+        <DesktopDropdown
           navigationTabs={navigationTabs}
           dropdownOpen={dropdownOpen}
           dropdownRef={dropdownRef}
@@ -132,8 +130,9 @@ const Header: React.FC<HeaderProps> = ({ isDark = false, navigationTabs }) => {
           selectedNav={selectedNav}
           handleNavClick={handleNavClick}
           isDark={isDark}
-        /> */}
-        {!isMobile && (
+          setSelectedNav={setSelectedNav}
+        />
+        {/* {!isMobile && (
           <div className="hidden lg:flex items-end">
             {navigationTabs.map((navItem, index) => (
               <Link href={`/${navItem.slug}`} key={index} passHref>
@@ -147,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({ isDark = false, navigationTabs }) => {
               </Link>
             ))}
           </div>
-        )}
+        )} */}
       </header>
     </>
   );

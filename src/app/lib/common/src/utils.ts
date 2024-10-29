@@ -32,3 +32,20 @@ export const formatDate = (date: string) =>
   });
 
 export const checkIsMobile = () => window.innerWidth < 1024;
+
+export const getTextSizeClass = (isHighlighted: boolean, baseClass: string) => {
+  switch (baseClass) {
+    case "text-base":
+      return isHighlighted ? "text-lg" : "text-base"
+    case "text-lg":
+      return isHighlighted ? "text-xl" : "text-lg";
+    case "text-xl":
+      return isHighlighted ? "text-2xl" : "text-xl";
+    case "text-2xl":
+      return isHighlighted ? "text-3xl" : "text-2xl";
+    case "text-3xl":
+      return isHighlighted ? "text-4xl" : "text-3xl";
+    default:
+      return baseClass;
+  }
+};

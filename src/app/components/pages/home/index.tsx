@@ -1,4 +1,4 @@
 import FeaturedInsights from "./FeaturedInsights";
-import TrendingCarousel from "./TrendingCarousel";
+// import TrendingCarousel from "./TrendingCarousel";
 
-export { FeaturedInsights, TrendingCarousel };
+export { FeaturedInsights };

@@ -2,6 +2,7 @@
 import React from "react";
 import clsx from "clsx";
 import { footerData } from "@/lib/constants";
+import SocialMediaLinks from "../pages/insights/SocialMediaLinks";
 
 type FooterProps = {
   isDark?: boolean;
@@ -16,27 +17,27 @@ const Footer: React.FC<FooterProps> = ({ isDark }) => {
         {footerData.map((section, idx) => (
           <div
             key={idx}
-            className={clsx(
-              idx === 0 ? "lg:row-span-2" : "",
-              idx === 2 ? "lg:row-span-2" : ""
-            )}
+            // className={clsx(
+            //   idx === 0 ? "lg:row-span-2" : "",
+            //   idx === 2 ? "lg:row-span-2" : ""
+            // )}
           >
             {/* Section Heading */}
-            <h4
-              className={clsx(
-                "font-assistant font-bold uppercase text-lg mb-4",
-                isDark ? "text-white" : "text-black"
-              )}
+            {/* <h4
+              // className={clsx(
+              //   "font-assistant font-bold uppercase text-lg mb-4",
+              //   isDark ? "text-white" : "text-black"
+              // )}
             >
               {section.heading}
-            </h4>
+            </h4> */}
             <ul>
               {section.links.map((link, linkIdx) => (
                 <li key={linkIdx} className="mb-2">
                   <a
                     href={link.url}
                     className={clsx(
-                      "font-assistant text-base hover:underline",
+                      "font-assistant font-bold uppercase text-lg mb-4",
                       isDark ? "text-white" : "text-black"
                     )}
                   >
@@ -65,12 +66,8 @@ const Footer: React.FC<FooterProps> = ({ isDark }) => {
             Terms of Use
           </a>
         </p>
-        <div
-          className={clsx(
-            "w-[100px] h-[20px] border-[2px]",
-            isDark ? "border-white" : "border-black"
-          )}
-        />
+
+        <SocialMediaLinks title={""} heroImage={""} currentUrl={""} />
       </div>
     </footer>
   );

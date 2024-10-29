@@ -1,7 +1,8 @@
 import { Footer, Header, HeroImage, Layout } from "@/components/ui";
 import { fetchNavigation, fetchPageContent } from "@/lib/api/src/contentful";
 import React from "react";
-import Section from "@/components/ui/Section";
+import ContentTabs from "@/components/pages/about/ContentTabs"; // Import ContentTabs component
+import { aboutUsData } from "@/assets/data/about_us"; // Assuming your aboutUsData is in a data folder
 
 export default async function Page() {
   const navigationTabs = await fetchNavigation("navigation");
@@ -40,16 +41,7 @@ export default async function Page() {
       />
       <div className="main flex flex-1 flex-col-reverse md:flex-row bg-white border-b border-b-slate-300 border-[1px]">
         <div className="flex-[1] h-full">
-          <div className="sections-container ">
-            {sections &&
-              sections.map((section, index) => (
-                <Section
-                  key={index}
-                  section={section}
-                  isReversed={index % 2 === 1}
-                />
-              ))}
-          </div>
+          <ContentTabs aboutUsData={aboutUsData} />
         </div>
       </div>
       <Footer />

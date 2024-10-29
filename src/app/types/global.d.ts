@@ -4,14 +4,30 @@ declare global {
   // PAGE PROPS
 
   type Section = {
-    title: string;
-    subtitle: string;
-    body: Document;
-    callToAction?: string;
-    quote?: string;
+    id: number;
+    title?: string; // Make title optional if not every section has it
+    subtitle?: string;
+    body: any;
+    quote?: boolean; // Updated to match the expected boolean type
     author?: string;
     image?: string;
+    callToActions?: CallToAction[];
   };
+  
+  
+  type SectionProps = {
+    section: {
+      id: number; // Add id property to identify the section
+      title: string;
+      subtitle?: string;
+      body: any; // Adjust this type according to your actual data
+      quote?: string;
+      author?: string;
+      image?: string;
+    };
+    isReversed?: boolean;
+  };
+  
   
   type PageContent = {
     form: FormProps | undefined;
@@ -37,6 +53,7 @@ declare global {
   };
 
   interface NavigationTab {
+    id: any;
     title: string;
     slug: string;
     tabs?: string[];
@@ -84,6 +101,7 @@ declare global {
     dropdownRef: React.RefObject<HTMLDivElement>;
     isMobile: boolean;
     selectedNav: number | null;
+    setSelectedNav: any;
     handleNavClick: (index: number) => void;
     isDark: boolean;
   }
@@ -175,7 +193,7 @@ declare global {
 
   type ParagraphProps = {
     title: string;
-    text: string;
+    body: string;
     image?: string;
     buttonUrl?: string;
     isReversed?: boolean;

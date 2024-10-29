@@ -163,12 +163,13 @@ export async function fetchNavigation(contentType: string) {
   try {
     const entries = await client.getEntries({
       content_type: contentType,
-      select: ["fields.title", "fields.tabs", "fields.slug"],
+      select: ["fields.title", "fields.tabs", "fields.slug", "fields.id"],
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return entries.items.map((item: any) => {
       return {
+        id: item.fields.id,
         title: item.fields.title,
         slug: item.fields.slug,
         tabs: item.fields.tabs,
@@ -222,6 +223,7 @@ export async function fetchInsightBySlug(contentType: string, slug: string) {
         "fields.heroImage",
         "fields.body",
         "fields.images",
+        "fields.pdf",
         "fields.slug",
         "fields.basePath",
         "fields.isFeatured",
@@ -248,6 +250,7 @@ export async function fetchInsightBySlug(contentType: string, slug: string) {
           : item.fields.heroImage?.fields?.file?.url || "",
         date: item.fields.heroImage?.sys?.createdAt ?? "",
         body: item.fields.body,
+        pdf: item.fields.pdf.fields.file.url,
         images: imageUrls ?? "",
         slug: item.fields.slug,
         basePath: item.fields.basePath,
