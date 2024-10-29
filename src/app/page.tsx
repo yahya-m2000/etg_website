@@ -1,5 +1,5 @@
 import { Footer, Header, Layout, Paragraph } from "@/components/ui";
-import { FeaturedInsights, TrendingCarousel } from "@/components/pages/home";
+// import { FeaturedInsights, TrendingCarousel } from "@/components/pages/home";
 import { renderHeroImage } from "./lib/common/src/ui/renderHeroImage";
 import { placeholderHeroImage } from "./assets/data/placeholderHeroImage";
 import Section from "@/components/ui/Section";

@@ -3,7 +3,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import SocialMediaLinks from "@/components/pages/insights/SocialMediaLinks";
 import { Header, Layout, HeroImage, Footer } from "@/components/ui";
-import { TrendingCarousel } from "@/components/pages/home";
+// import { TrendingCarousel } from "@/components/pages/home";
 import { fetchInsightBySlug, fetchNavigation } from "@/lib/api/src/contentful";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
 import { getImageUrl } from "@/lib/common/src/utils";
