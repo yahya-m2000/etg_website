@@ -19,9 +19,7 @@ export default async function Page() {
       pageContentData.find((page: PageContent) => page.slug === "services") ||
       null;
   }
-  // Fetch paragraph content
 
-  // Ensure you are looking for the right slug or page identifier
   const paragraphContent = paragraphData?.find(
     (page) => page.slug === "services"
   ) || {
@@ -31,12 +29,8 @@ export default async function Page() {
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?fit=crop&w=600&q=80",
   };
 
-  // Set default values or populate from the content fetched
   const title = content?.title || "Services";
-  const subtitle = content?.subtitle || "Our Services Subtitle";
-  const heroImage = content?.heroImage || "/default-hero-image.jpg"; // Provide fallback image
-
-  // Extract sections from content (services data)
+  const heroImage = content?.heroImage || "/default-hero-image.jpg";
   const servicesSections = content?.sections || [];
 
   return (
@@ -47,7 +41,7 @@ export default async function Page() {
         body={""}
         date={""}
         heroImage={heroImage}
-        subtitle={subtitle}
+        subtitle={""}
         basePath={""}
       />
       <main className="main px-0">

@@ -103,9 +103,9 @@ const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
             <>
               <blockquote
                 className={clsx(
-                  "italic border-l-4 pl-4 text-primary border-primary",
-                  getTextSizeClass(isHighlighted, "text-lg"),
-                  "font-regular mb-2 mt-4",
+                  " border-l-4 pl-4 text-primary border-primary",
+                  getTextSizeClass(isHighlighted, "text-2xl"),
+                  "font-semibold",
                   text
                 )}
               >

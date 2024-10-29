@@ -9,7 +9,8 @@ const nextConfig = {
       "images.ctfassets.net",
       "images.unsplash.com",
       "source.unsplash.com",
-      "picsum.photos"
+      "picsum.photos",
+      "images.pexels.com"
     ],
   },
 };

@@ -23,7 +23,7 @@ export default async function InsightPage({ params }: { params: Params }) {
   }
 
   const insight = data[0];
-  const { title, subtitle, author, date, body, heroImage, tags } = insight;
+  const { title, subtitle, author, date, body, heroImage, tags, pdf } = insight;
   const imageUrl = getImageUrl(heroImage);
 
   return (
@@ -46,17 +46,25 @@ export default async function InsightPage({ params }: { params: Params }) {
           {documentToReactComponents(body, richTextRenderOptions)}
         </div>
         <div className="flex-[0.2]">
-          <div className="sticky md:top-[10vh] flex flex-col justify-left items-start md:min-h-[20vh] transition-all duration-300">
+          <a
+            href={pdf}
+            download
+            className="font-assistant text-primary mt-4 block text-xl font-semibold hover:underline"
+          >
+            Download PDF
+          </a>
+        </div>
+      </div>
+      {/* <TrendingCarousel /> */}
+      <Footer />
+    </Layout>
+  );
+}
+
+/* <div className="sticky md:top-[10vh] flex flex-col justify-left items-start md:min-h-[20vh] transition-all duration-300">
             <SocialMediaLinks
               title={title}
               heroImage={imageUrl}
               currentUrl={currentUrl}
             />
-          </div>
-        </div>
-      </div>
-      <TrendingCarousel />
-      <Footer />
-    </Layout>
-  );
-}
+          </div> */

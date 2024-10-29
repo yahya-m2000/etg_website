@@ -111,9 +111,39 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
       {/* <h2 className="text-2xl font-bold mb-4">{form.title}</h2> */}
 
       {/* Render rich text for description */}
-      {/* <div className={getTextSizeClass(false, "mb-4 flex-[0.33]")}>
+      {/* <div className={getTextSizeClass(false, "mb-4 ")}>
         {documentToReactComponents(form.description, richTextRenderOptions)}
       </div> */}
+
+      <div className="flex-[0.33]">
+        <h3
+          className={getTextSizeClass(
+            true,
+            "text-4xl font-assistant font-regular"
+          )}
+        >
+          Our locations
+        </h3>
+        <p
+          className={getTextSizeClass(
+            true,
+            "text-xl font-assistant font-light"
+          )}
+        >
+          UK Office 128 City Road, London, EC1V 2NX
+          admin@theeeasterntradegroup.com
+        </p>
+
+        <p
+          className={getTextSizeClass(
+            true,
+            "text-xl font-assistant font-light"
+          )}
+        >
+          China Office Nanhai District, Foshan City Star Harbor International
+          Plaza, Building C admin.china@theeeasterntradegroup.com
+        </p>
+      </div>
       <div className="p-6 border-gray-300 flex-[0.66] transition-all duration-300">
         {generalError && (
           <div
@@ -132,7 +162,7 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
                 htmlFor={`form-field-${field.id}`}
                 className={getTextSizeClass(
                   false,
-                  "block font-assistant text-sm font-medium text-gray-700"
+                  "block font-assistant text-md font-medium "
                 )}
               >
                 {field.label}
@@ -190,7 +220,7 @@ const ContactForm: React.FC<{ form: FormProps }> = ({ form }) => {
             type="submit"
             className={getTextSizeClass(
               false,
-              "mt-4 font-assistant text-primary px-4 py-2 rounded-md"
+              "px-6 py-3 bg-secondary text-white hover:bg-primary transition-colors duration-300"
             )}
           >
             {form.submitText}

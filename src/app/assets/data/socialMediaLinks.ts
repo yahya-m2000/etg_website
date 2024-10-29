@@ -28,7 +28,7 @@ export const socialMediaLinks = ({
       heroImage
     )}`,
     icon: faTwitter,
-    color: "text-blue-400",
+    color: "text-primary",
   },
   {
     platform: "Facebook",
@@ -38,7 +38,7 @@ export const socialMediaLinks = ({
       heroImage
     )}`,
     icon: faFacebook,
-    color: "text-blue-600",
+    color: "text-primary",
   },
   {
     platform: "LinkedIn",
@@ -48,7 +48,7 @@ export const socialMediaLinks = ({
       title
     )}&source=${encodeURIComponent(heroImage)}`,
     icon: faLinkedin,
-    color: "text-blue-700",
+    color: "text-primary",
   },
   {
     platform: "WhatsApp",
@@ -56,6 +56,6 @@ export const socialMediaLinks = ({
       `${title} - ${currentUrl}`
     )}&image=${encodeURIComponent(heroImage)}`,
     icon: faWhatsapp,
-    color: "text-green-500",
+    color: "text-primary",
   },
 ];

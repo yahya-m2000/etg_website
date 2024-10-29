@@ -23,7 +23,7 @@ body {
 @layer base {
   /* Container styling */
   .main {
-    @apply px-[4vw] md:px-[8vw] lg:py-[4vh] md:py-[2vh] py-[2vh];
+    @apply px-[4vw] md:px-[4vw] lg:py-[4vh] md:py-[2vh] py-[2vh];
   }
   .container {
     @apply px-[2vw] py-[2vh];
