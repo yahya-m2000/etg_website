@@ -31,11 +31,11 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
           </IconButton>
         </div>
 
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-center">
           {/* navigation items container */}
           <div
             className={clsx(
-              "flex flex-col pr-[4vw] transition-all duration-300 ease-in-out"
+              "flex flex-col flex-1 text-center transition-all duration-300 ease-in-out"
             )}
           >
             {navigationTabs.map((navItem, index) => (

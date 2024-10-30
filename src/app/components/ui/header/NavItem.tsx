@@ -15,7 +15,7 @@ const NavItem: React.FC<NavItemProps> = ({
       // Use the font-assistant and universal styles
       "font-assistant font-medium text-lg cursor-pointer transition-all duration-300",
       isInDrawer
-        ? "text-black mb-[10px] px-4 text-xl bg-gray-100 rounded-md hover:bg-gray-200"
+        ? "text-white mb-[10px] px-4 text-xl bg-black hover:bg-primary"
         : "lg:mr-[2vw] mt-[20px]",
       // hover-underline
 

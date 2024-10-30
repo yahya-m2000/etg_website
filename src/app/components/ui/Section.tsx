@@ -148,24 +148,25 @@ const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
       {hasImage && !isQuote && (
         <div
           className={clsx(
-            "relative w-full h-[300px] lg:h-auto lg:min-h-[500px] lg:flex-[0.50] group"
+            "relative w-full h-[300px] lg:h-auto lg:min-h-[500px] lg:flex-[0.50] lg:mb-0 mb-[2vh] group"
           )}
         >
           <div
             ref={imageRef}
-            className="absolute inset-0 w-[40vw] h-[90%] mx-auto my-auto overflow-hidden"
+            // absolute inset-0
+            className=" lg:w-[40vw] w-[100vw] h-[90%] mx-auto my-auto overflow-hidden"
           >
             <Image
               src={section.image ?? ""}
               alt={section.title}
               layout="fill"
               objectFit="cover"
-              className={clsx(
-                "transition-transform duration-500 ease-in-out transform group-hover:translate-y-[-10px]"
-              )}
+              // className={clsx(
+              //   "transition-transform duration-500 ease-in-out transform group-hover:translate-y-[-10px]"
+              // )}
             />
             {/* Hover overlay */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-end pb-10 justify-center bg-opacity-10 bg-black">
+            {/* <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-end pb-10 justify-center bg-opacity-10 bg-black">
               <p
                 className={clsx(
                   getTextSizeClass(isHighlighted, "text-lg"),
@@ -174,7 +175,7 @@ const Section: React.FC<SectionProps> = ({ section, isReversed }) => {
               >
                 {isHighlighted ? "Highlighted Section" : "Placeholder Text"}
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

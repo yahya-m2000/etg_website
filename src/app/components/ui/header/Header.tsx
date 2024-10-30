@@ -119,7 +119,7 @@ const Header: React.FC<HeaderProps> = ({ isDark = false, navigationTabs }) => {
             handleNavClick={handleNavClick}
             drawerRef={drawerRef}
             dropdownRef={dropdownRef}
-            isDark={isDark}
+            isDark={false}
           />
         )}
         <DesktopDropdown
