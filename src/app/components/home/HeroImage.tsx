@@ -58,7 +58,7 @@ export default function HeroImage({ insights }: { insights: Publications[] }) {
             <Image
               className="object-cover saturate-50"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
+              // @ts-expect-error
               src={insight.heroImage}
               alt={`Background image for ${insight.title}`}
               fill

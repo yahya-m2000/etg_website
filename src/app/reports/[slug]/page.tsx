@@ -70,13 +70,13 @@ export default async function Report({ params }: { params: Params }) {
         position="fixed"
         effects={true}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         data={publicationsData || []}
       />
       <div className="relative flex flex-col h-[100vh] justify-center">
         <HeroImage
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error
           insights={[publication]}
         />
       </div>
@@ -101,7 +101,7 @@ export default async function Report({ params }: { params: Params }) {
               className="flex flex-col items-center mr-2.5"
               download
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
+              // @ts-expect-error
               href={publication.pdfDownload}
             >
               <Download04Icon size={18} className="mb-2.5" />
@@ -116,8 +116,6 @@ export default async function Report({ params }: { params: Params }) {
             </div>
           </div>
           {/* Render Rich Text */}
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-          {/* @ts-ignore */}
           <div className="">
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-expect-error */}

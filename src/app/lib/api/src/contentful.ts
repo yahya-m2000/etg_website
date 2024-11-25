@@ -82,7 +82,7 @@ export async function fetchPublication(contentType: string, slug: string) {
       const galleryImages = Array.isArray(fields.gallery)
         ? fields.gallery
             .filter(isAsset)
-            // @ts-ignore
+            // @ts-expect-error
             .map((image) => `https:${image?.fields.file.url}`)
         : [];
 

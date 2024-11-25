@@ -27,7 +27,7 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
 
   if (query) {
     try {
-      // @ts-ignore
+      // @ts-expect-error
       results = publicationsData.filter(
         (pub) =>
           pub &&
@@ -49,7 +49,7 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
         textColor="black"
         position="relative"
         effects={false}
-        // @ts-ignore
+        // @ts-expect-error
         data={publicationsData || []} // Ensure this is resolved
       />
       <main className="w-full px-20">
@@ -64,7 +64,7 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
                       <Link
                         href={getPublicationUrl(
                           pub.type + "s",
-                          // @ts-ignore
+                          // @ts-expect-error
                           pub.title,
                           pub.id
                         )}
@@ -85,10 +85,10 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
                             />
                           </div>
                           <div>
-                            {/*  @ts-ignore */}
+                            {/*  @ts-expect-error */}
                             <h2 className="font-semibold">{pub.title}</h2>
                             <p className="text-sm font-light w-[200px] truncate">
-                              {/* @ts-ignore */}
+                              {/* @ts-expect-error */}
                               {pub.description}
                             </p>
                           </div>
