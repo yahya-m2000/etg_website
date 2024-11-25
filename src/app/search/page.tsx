@@ -87,17 +87,19 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
             </div>
             {results.length > 0 ? (
               <ul>
-                {results.map((item) => (
+                {results.map((item, key) => (
                   <Link
                     href={getPublicationUrl(
                       item.type + "s",
                       item.title,
                       item.id
                     )}
+                    key={key}
                   >
                     <div className="flex flex-col flex-[0.7] pl-5">
                       <h1 className="text-2xl font-bold mb-5">
-                        Search Results for "{query}"
+                        {/* react/no-unescaped-entities */}
+                        Search Results for &quot;{query}&quot;
                       </h1>
                       <li
                         key={item.id}
@@ -128,7 +130,10 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
                 ))}
               </ul>
             ) : (
-              <p>No results found for "{query}".</p>
+              <p>
+                {/* react/no-unescaped-entities */}
+                No results found for &quot;{query}&quot;.
+              </p>
             )}
           </div>
         </div>

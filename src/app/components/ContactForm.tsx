@@ -76,7 +76,7 @@ const ContactForm = () => {
           const errorData = await response.json();
           setGeneralError(errorData.message || "Failed to send email.");
         }
-      } catch (error) {
+      } catch {
         setGeneralError("An error occurred. Please try again later.");
       }
     } else {
@@ -146,7 +146,8 @@ const ContactForm = () => {
       )}
       {isSubmitted && (
         <div className="text-green-500 font-assistant text-sm mt-4">
-          Thank you for reaching out! We'll get back to you soon.
+          {/* react/no-unescaped-entities */}
+          Thank you for reaching out! We&apos;ll get back to you soon.
         </div>
       )}
     </form>

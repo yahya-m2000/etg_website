@@ -1,5 +1,5 @@
 // lib/contentful.ts
-import { createClient, CreateClientParams } from "contentful";
+import { createClient } from "contentful";
 
 export const managementClient = createClient({
   space: process.env.CONTENTFUL_SPACE_ID as string, // Ensure this is set
@@ -55,7 +55,7 @@ export async function fetchPublication(contentType: string, slug: string) {
 
     if (entries.items.length > 0) {
       const item = entries.items[0];
-      const {fields, sys} = item
+      const {fields} = item
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
       const heroImage = fields.heroImage?.fields?.file?.url
@@ -66,7 +66,7 @@ export async function fetchPublication(contentType: string, slug: string) {
 
       const galleryImages = Array.isArray(fields.gallery)
         ? fields.gallery.map(
-            (image: any) => `https:${image.fields.file.url}`
+            (image) => `https:${image?.fields.file.url}`
           )
         : [];
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -153,7 +153,7 @@ export async function fetchPublications(contentType: string) {
     });
 
     if (entries.items.length > 0) {
-      return entries.items.map((item: any) => {
+      return entries.items.map((item) => {
         const { fields, sys} = item;
 
         // Safely extract and transform fields
@@ -162,12 +162,12 @@ export async function fetchPublications(contentType: string) {
           : "";
 
         const galleryImages = Array.isArray(fields.gallery)
-          ? fields.gallery.map((image: any) =>
-              image.fields?.file?.url ? `https:${image.fields.file.url}` : ""
+          ? fields.gallery.map((image) =>
+              image?.fields.file.url ? `https:${image?.fields.file.url}` : ""
             )
           : [];
 
-        const pdfDownload = fields.pdfDownload?.fields?.file?.url
+        const pdfDownload = fields.pdfDownload?.fields.file.url
           ? `https:${fields.pdfDownload.fields.file.url}`
           : null;
 

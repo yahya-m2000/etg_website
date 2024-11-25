@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { formatDate, getPublicationUrl } from "@/lib/common/src/utils";
-import TrendingSection from "./TrendingSection";
 import Link from "next/link";
 
 export default function HeroImage({ insights }: { insights: Publications[] }) {

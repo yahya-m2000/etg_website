@@ -53,7 +53,7 @@ export const getTextSizeClass = (isHighlighted: boolean, baseClass: string) => {
   }
 };
 
-export const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>, searchQuery: string, handleDrawer:any) => {
+export const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>, searchQuery: string, handleDrawer: () => void) => {
   if (e.key === "Enter" && searchQuery.trim()) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
@@ -68,7 +68,7 @@ export const getPublicationUrl = (type: string, title: string, id: string) => {
     .replace(/[^a-zA-Z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-    // console.log("Pls work:", id)
+    console.log("Pls work:", id)
     // const incrementViews = async (publicationId: string) => {
     //   try {
     //     if (!publicationId) {
