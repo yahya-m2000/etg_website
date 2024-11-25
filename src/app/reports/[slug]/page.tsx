@@ -11,9 +11,35 @@ import {
 import { fetchPublication, fetchPublications } from "@/lib/api/src/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
-import { Params } from "next/dist/server/request/params";
+import { Metadata } from "next";
 
-export default async function Report({ params }: { params: Params }) {
+interface Props {
+  params: { slug: string };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+
+  // Fetch the publication data to generate dynamic metadata
+  const publication = await fetchPublication("publication", slug);
+
+  if (!publication) {
+    return {
+      title: "Insight Not Found",
+    };
+  }
+
+  return {
+    title: publication.title,
+    openGraph: {
+      title: publication.title,
+      description: publication.description,
+      images: publication.heroImage ? [publication.heroImage] : [],
+    },
+  };
+}
+
+export default async function Report({ params }: Props) {
   const { slug } = params; // Destructure slug from params
   const publication = await fetchPublication("publication", slug);
   const publicationsData = await fetchPublications("publication");
