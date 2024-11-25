@@ -3,19 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f9ff;
+  --foreground: #231F20;
+  --font-assistant: "Assistant", sans-serif;
+  --font-inria-serif: "Inria Serif", serif;
+  --font-barlow-condensed: "Barlow Condensed", sans-serif;
+  --font-bitter: "Bitter", serif;
+  --font-inter: "Inter", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ffeaf1;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-assistant)
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  place-self: center;
+width: auto;
+}
+
+
+@layer base {
+  .container {
+    @apply flex flex-col place-self-center md:p-10 p-5;
+  }
+  .child_container {
+    @apply 
+  }
+  .logo {
+    @apply font-inter font-bold text-lg cursor-pointer tracking-wider
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
 }

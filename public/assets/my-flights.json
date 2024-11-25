@@ -1,0 +1,89 @@
+{
+    "type": "FlightsCollection",
+    "flights": [
+        {
+            "type": "flight",
+            "order": 1,
+            "from": "SOM",
+            "to": "ARE",
+            "flightCode": "ET 500",
+            "date": "Apr 5, 2021",
+            "status": true,
+            "startLat": 2.0469,
+            "startLng": 45.3182,
+            "endLat": 25.2528,
+            "endLng": 55.3644,
+            "arcAlt": 0.2
+        },
+        {
+            "type": "flight",
+            "order": 2,
+            "from": "ARE",
+            "to": "CHN",
+            "flightCode": "EK 300",
+            "date": "Apr 8, 2021",
+            "status": true,
+            "startLat": 25.2528,
+            "startLng": 55.3644,
+            "endLat": 39.9042,
+            "endLng": 116.4074,
+            "arcAlt": 0.3
+        },
+        {
+            "type": "flight",
+            "order": 3,
+            "from": "CHN",
+            "to": "IRN",
+            "flightCode": "CA 123",
+            "date": "Apr 15, 2021",
+            "status": true,
+            "startLat": 39.9042,
+            "startLng": 116.4074,
+            "endLat": 35.6892,
+            "endLng": 51.389,
+            "arcAlt": 0.25
+        },
+        {
+            "type": "flight",
+            "order": 4,
+            "from": "IRN",
+            "to": "BGD",
+            "flightCode": "IR 721",
+            "date": "May 1, 2021",
+            "status": true,
+            "startLat": 35.6892,
+            "startLng": 51.389,
+            "endLat": 23.8103,
+            "endLng": 90.4125,
+            "arcAlt": 0.2
+        },
+        {
+            "type": "flight",
+            "order": 5,
+            "from": "BGD",
+            "to": "SDS",
+            "flightCode": "BG 820",
+            "date": "May 10, 2021",
+            "status": true,
+            "startLat": 23.8103,
+            "startLng": 90.4125,
+            "endLat": 4.859363,
+            "endLng": 31.57125,
+            "arcAlt": 0.15
+        },
+        {
+            "type": "flight",
+            "order": 6,
+            "from": "SDS",
+            "to": "SOM",
+            "flightCode": "SS 101",
+            "date": "May 20, 2021",
+            "status": true,
+            "startLat": 4.859363,
+            "startLng": 31.57125,
+            "endLat": 2.0469,
+            "endLng": 45.3182,
+            "arcAlt": 0.18
+        }
+    ]
+}

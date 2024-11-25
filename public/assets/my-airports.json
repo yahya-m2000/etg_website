@@ -1,0 +1,53 @@
+{
+    "type": "AirportsCollection",
+    "airports": [
+        {
+            "text": "HGA",
+            "size": 1.0,
+            "country": "Somalia",
+            "city": "Hargeisa",
+            "lat": "9.5183",
+            "lng": "44.0583"
+        },
+        {
+            "text": "DXB",
+            "size": 1.0,
+            "country": "United Arab Emirates",
+            "city": "Dubai",
+            "lat": "25.2528",
+            "lng": "55.3644"
+        },
+        {
+            "text": "PEK",
+            "size": 1.0,
+            "country": "China",
+            "city": "Beijing",
+            "lat": "39.9042",
+            "lng": "116.4074"
+        },
+        {
+            "text": "DAC",
+            "size": 1.0,
+            "country": "Bangladesh",
+            "city": "Dhaka",
+            "lat": "23.8103",
+            "lng": "90.4125"
+        },
+        {
+            "text": "IKA",
+            "size": 1.0,
+            "country": "Iran",
+            "city": "Tehran",
+            "lat": "35.6892",
+            "lng": "51.389"
+        },
+        {
+            "text": "JUB",
+            "size": 1.0,
+            "country": "South Sudan",
+            "city": "Juba",
+            "lat": "4.859363",
+            "lng": "31.57125"
+        }
+    ]
+}

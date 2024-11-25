@@ -1,101 +1,79 @@
-import Image from "next/image";
+import Header from "@/components/Header";
+import HeroImage from "@/components/home/HeroImage";
+import HeaderParagraphImage from "./components/home/HeaderParagraphImage";
+import Footer from "./components/Footer";
+import Link from "next/link";
 
-export default function Home() {
+import { fetchPublication, fetchPublications } from "./lib/api/src/contentful";
+import TrendingSection from "./components/home/TrendingSection";
+
+export default async function Home() {
+  const publicationData = await fetchPublication(
+    "publication",
+    "regional-performance-review"
+  );
+  const publicationsData = await fetchPublications("publication");
+
+  // console.log("Publications Data:", publicationsData);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div>
+      <Header
+        logo=""
+        navItems={[""]}
+        callToAction={["Learn More", "Get Started"]}
+        backgroundColor=""
+        textColor="white"
+        position="fixed"
+        effects={true}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        data={publicationsData || []} // Ensure this is resolved
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="relative flex flex-col justify-center ">
+        <HeroImage
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          insights={publicationData ? [publicationData] : []}
+        />
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-expect-error */}
+        <TrendingSection data={publicationsData} />
+      </div>
+      <main className="relative flex justify-center items-center z-20 bg-background">
+        <HeaderParagraphImage
+          title="Shaping a|Sustainable Future"
+          body="THE EASTERN TRADE GROUP is an international investment and trading firm committed to transforming and integrating developing markets across the world into the global economy. At the heart of our mission is the cultivation of an expansive, operational global network through technology, consultancy, and logistics, connecting international investors to regions of great potential."
+          image="https://images.pexels.com/photos/16656496/pexels-photo-16656496/free-photo-of-close-up-of-green-leaves.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        />
+        <HeaderParagraphImage
+          reversed={true}
+          quote
+          body="
+THE EASTERN TRADE GROUP was formed with simple yet effective principles at its core: Community, Creativity, Longevity, and Equality. In the ever changing world of international trade, competition is fierce, with businesses of all sizes striving to adapt and stay afloat. The global landscape is in an era of monumental shifting, and only the agile and forward thinkers will thrive. That’s why we’re here, to empower you and your businesses to not only navigate but excel in tomorrow’s trade, today. - Ridwan Mohamed, Founding Director"
+          image="/assets/Grey-9195.jpg"
+        />
+        <HeaderParagraphImage
+          title="Business|Hubs"
+          body="With operational hubs in key areas across the globe, we are strategically positioned to offer tailored services for your support. Our services span from facilitating international trade agreements and partnerships to providing consultancy on regional development and infrastructure projects. By connecting businesses with the right partners and stakeholders in the public sector, logistics, manufacturing, and more, we ensure that every element of the supply chain benefits from tailored, effective, and sustainable solutions."
+          image="https://images.pexels.com/photos/439416/pexels-photo-439416.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        />
+        <div className="flex flex-1 w-full flex-col bg-primary justify-center items-center p-5">
+          <h4 className="font-bitter font-bold text-3xl text-white">
+            How can we help?
+          </h4>
+          <h6 className="font-bitter text-xl text-white">
+            <Link href="/contact">
+              <span className="underline cursor-pointer">Get in touch</span>
+            </Link>{" "}
+            with us
+          </h6>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <div className="relative z-20">
+        <Footer />
+      </div>
     </div>
   );
 }
