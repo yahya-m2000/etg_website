@@ -14,7 +14,7 @@ export default async function Home() {
   );
   const publicationsData = await fetchPublications("publication");
 
-  // console.log("Publications Data:", publicationsData);
+  console.log("Publications Data:", publicationsData);
 
   return (
     <div>

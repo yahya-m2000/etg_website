@@ -33,11 +33,18 @@ export async function generateMetadata({
     };
   }
 
+  const title =
+    typeof publication.title === "string" ? publication.title : "Default Title";
+  const description =
+    typeof publication.description === "string"
+      ? publication.description
+      : "No description available";
+
   return {
-    title: publication.title,
+    title,
     openGraph: {
-      title: publication.title,
-      description: publication.description,
+      title,
+      description,
       images: publication.heroImage ? [publication.heroImage] : [],
     },
   };
