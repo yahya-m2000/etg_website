@@ -6,13 +6,14 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 
 interface SearchPageProps {
-  searchParams: { query?: string };
+  searchParams: Promise<{ query?: string }>;
 }
 
 export default async function SearchResults({ searchParams }: SearchPageProps) {
-  const query = searchParams?.query || "";
+  const { query } = await searchParams; // Await searchParams as a promise
   let results: Publications[] = [];
   const publicationsData = await fetchPublications("publication");
+
   const trendingPublications = publicationsData
     .filter((pub) => {
       // console.log("Views:", pub.views); // Log views to debug
