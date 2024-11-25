@@ -13,12 +13,16 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
 import { Metadata } from "next";
 
-interface Props {
-  params: { slug: string };
-}
+type Params = Promise<{
+  slug: string;
+}>;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug } = await params;
 
   // Fetch the publication data to generate dynamic metadata
   const publication = await fetchPublication("publication", slug);
@@ -39,8 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Report({ params }: Props) {
-  const { slug } = params; // Destructure slug from params
+export default async function Report({ params }: { params: Params }) {
+  const { slug } = await params; // Destructure slug from params
   const publication = await fetchPublication("publication", slug);
   const publicationsData = await fetchPublications("publication");
 
