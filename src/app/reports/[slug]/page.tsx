@@ -11,12 +11,9 @@ import {
 import { fetchPublication, fetchPublications } from "@/lib/api/src/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
+import { Params } from "next/dist/server/request/params";
 
-interface ReportProps {
-  params: { slug: string }; // Explicitly define params type
-}
-
-export default async function Report({ params }: ReportProps) {
+export default async function Report({ params }: { params: Params }) {
   const { slug } = params; // Destructure slug from params
   const publication = await fetchPublication("publication", slug);
   const publicationsData = await fetchPublications("publication");
