@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { formatDate, getPublicationUrl } from "@/lib/common/src/utils";
-import TrendingSection from "./TrendingSection";
 import Link from "next/link";
 
 export default function HeroImage({ insights }: { insights: Publications[] }) {
@@ -59,7 +58,7 @@ export default function HeroImage({ insights }: { insights: Publications[] }) {
             <Image
               className="object-cover saturate-50"
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
+              // @ts-expect-error
               src={insight.heroImage}
               alt={`Background image for ${insight.title}`}
               fill

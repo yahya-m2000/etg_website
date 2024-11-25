@@ -45,7 +45,7 @@ const Header: React.FC<Props> = ({
           // @ts-expect-error
           Array.isArray(item.type) &&
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error
           item.type.some(
             (t: string) => t.toLowerCase() === (hoveredType || "").toLowerCase()
           )

@@ -14,7 +14,7 @@ export default async function Home() {
   );
   const publicationsData = await fetchPublications("publication");
 
-  // console.log("Publications Data:", publicationsData);
+  console.log("Publications Data:", publicationsData);
 
   return (
     <div>
@@ -27,14 +27,14 @@ export default async function Home() {
         position="fixed"
         effects={true}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         data={publicationsData || []} // Ensure this is resolved
       />
 
       <div className="relative flex flex-col justify-center ">
         <HeroImage
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error
           insights={publicationData ? [publicationData] : []}
         />
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}

@@ -30,14 +30,6 @@ const Drawer: React.FC<DrawerProps> = ({
     }
   };
 
-  const handleClick = (type: string, title: string) => {
-    const kebabCaseTitle = title
-      .toLowerCase()
-      .replace(/[^a-zA-Z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-    router.push(`/${type}/${kebabCaseTitle}`);
-  };
-
   return (
     <div>
       <div className="z-0 absolute inset-0 backdrop-blur-[2px] bg-black w-[100vw] h-[100vh] bg-opacity-50" />

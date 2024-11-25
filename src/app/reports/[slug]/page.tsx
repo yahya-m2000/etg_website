@@ -11,9 +11,47 @@ import {
 import { fetchPublication, fetchPublications } from "@/lib/api/src/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
+import { Metadata } from "next";
 
-export default async function Report({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+type Params = Promise<{
+  slug: string;
+}>;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  // Fetch the publication data to generate dynamic metadata
+  const publication = await fetchPublication("publication", slug);
+
+  if (!publication) {
+    return {
+      title: "Insight Not Found",
+    };
+  }
+
+  const title =
+    typeof publication.title === "string" ? publication.title : "Default Title";
+  const description =
+    typeof publication.description === "string"
+      ? publication.description
+      : "No description available";
+
+  return {
+    title,
+    openGraph: {
+      title,
+      description,
+      images: publication.heroImage ? [publication.heroImage] : [],
+    },
+  };
+}
+
+export default async function Report({ params }: { params: Params }) {
+  const { slug } = await params; // Destructure slug from params
   const publication = await fetchPublication("publication", slug);
   const publicationsData = await fetchPublications("publication");
 
@@ -32,13 +70,13 @@ export default async function Report({ params }: { params: { slug: string } }) {
         position="fixed"
         effects={true}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         data={publicationsData || []}
       />
       <div className="relative flex flex-col h-[100vh] justify-center">
         <HeroImage
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error
           insights={[publication]}
         />
       </div>
@@ -63,7 +101,7 @@ export default async function Report({ params }: { params: { slug: string } }) {
               className="flex flex-col items-center mr-2.5"
               download
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
+              // @ts-expect-error
               href={publication.pdfDownload}
             >
               <Download04Icon size={18} className="mb-2.5" />
@@ -78,8 +116,6 @@ export default async function Report({ params }: { params: { slug: string } }) {
             </div>
           </div>
           {/* Render Rich Text */}
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-          {/* @ts-ignore */}
           <div className="">
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
             {/* @ts-expect-error */}

@@ -1,6 +1,5 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import HeroImage from "./components/home/HeroImage";
 import { fetchPublications } from "./lib/api/src/contentful";
 
 export default async function NotFound() {

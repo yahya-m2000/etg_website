@@ -29,7 +29,10 @@ export default async function Contact() {
               Contact Us
             </h4>
             <p className="mb-2.5">
-              Have questions? We're here to help. Fill out the form below, and
+              {/* react/no-unescaped-entities */}
+              Have questions? We&apos;re here to help. Fill out the form below,
+              and
+              {/* react/no-unescaped-entities */}
               our team will get back to you shortly.
             </p>
             <ContactForm />

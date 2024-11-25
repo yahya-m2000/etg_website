@@ -1,5 +1,6 @@
 // lib/contentful.ts
-import { createClient, CreateClientParams } from "contentful";
+import { createClient } from "contentful";
+import { Entry, Asset } from "contentful"; // Import proper types
 
 export const managementClient = createClient({
   space: process.env.CONTENTFUL_SPACE_ID as string, // Ensure this is set
@@ -12,19 +13,29 @@ export const client = createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string 
 });
 
+const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
+const CONTENTFUL_ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT || "master";
+const CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN = process.env.CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN;
+
+const CONTENTFUL_API_BASE = `https://api.contentful.com/spaces/${CONTENTFUL_SPACE_ID}/environments/${CONTENTFUL_ENVIRONMENT}`;
+
+
+// Helper to check if an object is an Entry
+function isEntry(obj: any): obj is Entry<any> {
+  return obj && typeof obj === "object" && "fields" in obj;
+}
+
+// Helper to check if an object is an Asset
+function isAsset(obj: any): obj is Asset {
+  return obj && typeof obj === "object" && "fields" in obj && "file" in obj.fields;
+}
 
 export async function fetchPublication(contentType: string, slug: string) {
   try {
-    // console.log(`Fetching entry with slug: ${slug}`); // Log the slug for debugging
-    // console.log("Space ID:", process.env.CONTENTFUL_SPACE_ID);
-// console.log("Access Token:", process.env.CONTENTFUL_ACCESS_TOKEN);
-// console.log("Environment:", process.env.CONTENTFUL_ENVIRONMENT);
-
-
     const entries = await client.getEntries({
       content_type: contentType,
-      "fields.slug": slug, // Use the slug for identification
-      limit: 1, // Expecting a single entry
+      "fields.slug": slug,
+      limit: 1,
       select: [
         "sys.id",
         "fields.title",
@@ -55,30 +66,29 @@ export async function fetchPublication(contentType: string, slug: string) {
 
     if (entries.items.length > 0) {
       const item = entries.items[0];
-      const {fields, sys} = item
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-      const heroImage = fields.heroImage?.fields?.file?.url
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-        ? `https:${fields.heroImage.fields.file.url}`
+
+      // Ensure item is an Entry
+      if (!isEntry(item)) {
+        console.error("Unexpected type for item:", item);
+        return null;
+      }
+
+      const fields = item.fields;
+
+      const heroImage = isAsset(fields.heroImage)
+        ? `https:${fields.heroImage.fields.file?.url}`
         : "";
 
       const galleryImages = Array.isArray(fields.gallery)
-        ? fields.gallery.map(
-            (image: any) => `https:${image.fields.file.url}`
-          )
+        ? fields.gallery
+            .filter(isAsset)
+            // @ts-expect-error
+            .map((image) => `https:${image?.fields.file.url}`)
         : [];
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-      const pdfDownload = fields.pdfDownload?.fields?.file?.url
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-        ? `https:${fields.pdfDownload.fields.file.url}`
-        : null;
 
-      console.log("Entry found:", fields); // Log the found entry for debugging
-      console.log("Entry found:", heroImage); // Log the found entry for debugging
+      const pdfDownload = isAsset(fields.pdfDownload)
+        ? `https:${fields.pdfDownload.fields.file?.url}`
+        : null;
 
       return {
         id: item.sys.id,
@@ -88,7 +98,7 @@ export async function fetchPublication(contentType: string, slug: string) {
         author: fields.author || [],
         date: fields.date || "",
         tags: fields.tags || [],
-        featured: fields.featured || false, 
+        featured: fields.featured || false,
         sector: fields.sector || [],
         topics: fields.topics || [],
         type: fields.type || [],
@@ -104,109 +114,60 @@ export async function fetchPublication(contentType: string, slug: string) {
         dataSource: fields.dataSource || {},
         footnotes: fields.footnotes || "",
         translations: fields.translations || {},
-        views: fields.views
+        views: fields.views || 0,
       };
     } else {
-      console.log("No entry found with the given slug"); // Log no entry found
-      return null; // Return null when no entry is found
+      console.log("No entry found with the given slug");
+      return null;
     }
   } catch (error) {
     console.error("Error fetching entry by slug:", error);
-    return null; // Return null on error
+    return null;
   }
 }
 
 export async function fetchPublications(contentType: string) {
   try {
-    console.log("Space ID:", process.env.CONTENTFUL_SPACE_ID);
-    console.log("Access Token:", process.env.CONTENTFUL_ACCESS_TOKEN);
-    console.log("Environment:", process.env.CONTENTFUL_ENVIRONMENT);
-
     const entries = await client.getEntries({
       content_type: contentType,
       select: [
         "sys.id",
         "fields.title",
         "fields.description",
-        "fields.body",
-        "fields.author",
-        "fields.date",
-        "fields.tags",
-        "fields.featured",
-        "fields.sector",
-        "fields.topics",
         "fields.type",
+        "fields.tags",
+        "fields.date",
         "fields.heroImage",
-        "fields.gallery",
-        "fields.readTime",
-        "fields.engagementLinks",
-        "fields.seo",
-        "fields.slug",
-        "fields.openGraph",
-        "fields.relatedEntries",
-        "fields.pdfDownload",
-        "fields.dataSource",
-        "fields.footnotes",
-        "fields.translations",
-        "fields.views"
+        "fields.views",
+        "fields.featured"
       ],
     });
 
     if (entries.items.length > 0) {
-      return entries.items.map((item: any) => {
-        const { fields, sys} = item;
+      return entries.items.map((item) => {
+        if (!isEntry(item)) {
+          console.error("Unexpected type for item:", item);
+          return null;
+        }
 
-        // Safely extract and transform fields
-        const heroImage = fields.heroImage?.fields?.file?.url
-          ? `https:${fields.heroImage.fields.file.url}`
+        const fields = item.fields;
+
+        const heroImage = isAsset(fields.heroImage)
+          ? `https:${fields.heroImage.fields.file?.url}`
           : "";
 
-        const galleryImages = Array.isArray(fields.gallery)
-          ? fields.gallery.map((image: any) =>
-              image.fields?.file?.url ? `https:${image.fields.file.url}` : ""
-            )
-          : [];
-
-        const pdfDownload = fields.pdfDownload?.fields?.file?.url
-          ? `https:${fields.pdfDownload.fields.file.url}`
-          : null;
-
-        // Debug logs for individual entries
-        console.log("Processed Entry:", {
-          id: sys.id,
-          title: fields.title,
-          heroImage,
-          galleryImages,
-        });
-
-        // Return a structured object
         return {
-          id: sys.id || "something is up!",
+          id: item.sys.id,
           title: fields.title || "Untitled",
+          tags: fields.tags,
+          type: fields.type,
+          date: fields.date,
           description: fields.description || "",
-          body: fields.body || "",
-          author: fields.author || [],
-          date: fields.date || "",
-          tags: fields.tags || [],
-          featured: fields.featured || false,
-          sector: fields.sector || [],
-          topics: fields.topics || [],
-          type: fields.type || [],
           heroImage,
-          gallery: galleryImages,
-          readTime: fields.readTime || "",
-          engagementLinks: fields.engagementLinks || [],
-          seo: fields.seo || {},
-          slug: fields.slug || "",
-          openGraph: fields.openGraph || {},
-          relatedEntries: fields.relatedEntries || [],
-          pdfDownload,
-          dataSource: fields.dataSource || {},
-          footnotes: fields.footnotes || "",
-          translations: fields.translations || {},
-          views: fields.views || {}
+          views: fields.views || 0,
+          featured: fields.featured
         };
-      });
+      }).filter(Boolean); // Remove null values
     } else {
       console.log("No entries found");
       return [];
@@ -216,12 +177,6 @@ export async function fetchPublications(contentType: string) {
     return [];
   }
 }
-
-const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const CONTENTFUL_ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT || "master";
-const CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN = process.env.CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN;
-
-const CONTENTFUL_API_BASE = `https://api.contentful.com/spaces/${CONTENTFUL_SPACE_ID}/environments/${CONTENTFUL_ENVIRONMENT}`;
 
 export async function incrementViews(entryId: string): Promise<number> {
   try {
