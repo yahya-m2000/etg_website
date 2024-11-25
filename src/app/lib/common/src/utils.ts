@@ -69,37 +69,37 @@ export const getPublicationUrl = (type: string, title: string, id: string) => {
     .replace(/^-+|-+$/g, "");
 
     console.log("Pls work:", id)
-    // const incrementViews = async (publicationId: string) => {
-    //   try {
-    //     if (!publicationId) {
-    //       console.error("Publication ID is missing!");
-    //       return;
-    //     }
+    const incrementViews = async (publicationId: string) => {
+      try {
+        if (!publicationId) {
+          console.error("Publication ID is missing!");
+          return;
+        }
     
-    //     console.log("Incrementing a views for ID:", publicationId); // Debug log
+        console.log("Incrementing a views for ID:", publicationId); // Debug log
     
-    //     const baseUrl =
-    //       typeof window !== "undefined"
-    //         ? window.location.origin
-    //         : "http://localhost:3000"; // Adjust base URL for non-browser contexts
-    //     const response = await fetch(`${baseUrl}/api/increment-views`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ publicationId }),
-    //     });
+        const baseUrl =
+          typeof window !== "undefined"
+            ? window.location.origin
+            : "http://localhost:3000"; // Adjust base URL for non-browser contexts
+        const response = await fetch(`${baseUrl}/api/increment-views`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ publicationId }),
+        });
     
-    //     if (!response.ok) {
-    //       throw new Error("Failed to increment views");
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to increment views:", error);
-    //   }
-    // };
+        if (!response.ok) {
+          throw new Error("Failed to increment views");
+        }
+      } catch (error) {
+        console.error("Failed to increment views:", error);
+      }
+    };
     
     
-    // incrementViews(id)
+    incrementViews(id)
 
   // Return the constructed URL
   return `/${type}/${kebabCaseTitle}`;
