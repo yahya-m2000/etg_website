@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Link from "next/link";
 
 import { fetchPublication, fetchPublications } from "./lib/api/src/contentful";
-import TrendingSection from "./components/home/TrendingSection";
+// import TrendingSection from "./components/home/TrendingSection";
 
 export default async function Home() {
   const publicationData = await fetchPublication(
@@ -38,8 +38,7 @@ export default async function Home() {
           insights={publicationData ? [publicationData] : []}
         />
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-expect-error */}
-        <TrendingSection data={publicationsData} />
+        {/* <TrendingSection data={publicationsData} /> */}
       </div>
       <main className="relative flex justify-center items-center z-20 bg-background">
         <HeaderParagraphImage

@@ -5,28 +5,38 @@ import React from "react";
 export const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.HEADING_1]: (_node: Node, children: React.ReactNode) => (
-      <h1 className="font-bitter text-5xl font-light text-foreground mb-5">
-        {children}
-      </h1>
+      <h1 className="font-bitter text-5xl  text-foreground mb-5">{children}</h1>
     ),
     [BLOCKS.HEADING_2]: (_node: Node, children: React.ReactNode) => (
-      <h2 className="font-bitter text-4xl font-light text-foreground mb-5">
-        {children}
-      </h2>
+      <h2 className="font-bitter text-4xl  text-foreground mb-5">{children}</h2>
     ),
     [BLOCKS.HEADING_3]: (_node: Node, children: React.ReactNode) => (
       <h3 className="font-bitter text-3xl  text-foreground mb-5">{children}</h3>
     ),
     [BLOCKS.HEADING_4]: (_node: Node, children: React.ReactNode) => (
-      <h4 className="font-bitter text-2xl font-light text-foreground mb-5">
-        {children}
-      </h4>
+      <h4 className="font-bitter text-2xl  text-foreground mb-5">{children}</h4>
     ),
+
+    [BLOCKS.HEADING_5]: (_node: Node, children: React.ReactNode) => (
+      <h5 className="font-bitter text-xl  text-foreground mb-5">{children}</h5>
+    ),
+
     [BLOCKS.PARAGRAPH]: (_node: Node, children: React.ReactNode) => (
       <p className="font-inter text-justify leading-relaxed text-foreground font-light mb-5">
         {children}
       </p>
     ),
+
+    [BLOCKS.UL_LIST]: (_node: Node, children: React.ReactNode) => (
+      <ul className="list-disc pl-10 mb-5">{children}</ul>
+    ),
+    [BLOCKS.OL_LIST]: (_node: Node, children: React.ReactNode) => (
+      <ol className="list-disc pl-10 mb-5">{children}</ol>
+    ),
+    [BLOCKS.LIST_ITEM]: (_node: Node, children: React.ReactNode) => (
+      <li className="mb-2">{children}</li>
+    ),
+
     [INLINES.HYPERLINK]: (node: Node, children: React.ReactNode) => {
       const { uri } = node.data;
       return (
