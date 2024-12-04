@@ -14,19 +14,20 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
   let results: Publications[] = [];
   const publicationsData = await fetchPublications("publication");
 
-  const trendingPublications = publicationsData
-    .filter(
-      (pub) => pub && typeof pub.views === "number" && pub.views > 0 // Safely ensure views exist and are a number
-    )
-    .sort((a, b) => {
-      const viewsA = typeof a?.views === "number" ? a.views : 0;
-      const viewsB = typeof b?.views === "number" ? b.views : 0;
-      return viewsB - viewsA; // Ensure sorting only numbers
-    })
-    .slice(0, 5);
+  // const trendingPublications = publicationsData
+  //   .filter(
+  //     (pub) => pub && typeof pub.views === "number" && pub.views > 0 // Safely ensure views exist and are a number
+  //   )
+  //   .sort((a, b) => {
+  //     const viewsA = typeof a?.views === "number" ? a.views : 0;
+  //     const viewsB = typeof b?.views === "number" ? b.views : 0;
+  //     return viewsB - viewsA; // Ensure sorting only numbers
+  //   })
+  //   .slice(0, 5);
 
   if (query) {
     try {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       results = publicationsData.filter(
         (pub) =>
@@ -49,15 +50,16 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
         textColor="black"
         position="relative"
         effects={false}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         data={publicationsData || []} // Ensure this is resolved
       />
-      <main className="w-full px-20">
+      <main className="w-full lg:px-20 px-5">
         <div className="min-h-screen">
-          <div className="flex flex-row">
+          <div className="flex md:flex-row flex-col">
             <div className="flex flex-col flex-[0.3] justify-start">
-              <h6 className="font-bold text-2xl mb-5">Trending Publications</h6>
-              <ul className="border-r-[0.5px] border-gray-200 pr-5">
+              {/* <h6 className="font-bold text-2xl mb-5">Trending Publications</h6> */}
+              {/* <ul className="border-r-[0.5px] border-gray-200 pr-5">
                 {trendingPublications.map(
                   (pub) =>
                     pub && ( // Ensure publication is not null
@@ -85,10 +87,10 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
                             />
                           </div>
                           <div>
-                            {/*  @ts-expect-error */}
+                             @ts-expect-error 
                             <h2 className="font-semibold">{pub.title}</h2>
                             <p className="text-sm font-light w-[200px] truncate">
-                              {/* @ts-expect-error */}
+                               @ts-expect-error 
                               {pub.description}
                             </p>
                           </div>
@@ -96,30 +98,35 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
                       </Link>
                     )
                 )}
-              </ul>
+              </ul> */}
             </div>
             {results.length > 0 ? (
               <ul>
                 {results.map(
                   (item) =>
                     item && ( // Ensure result item is not null
-                      <Link
-                        href={getPublicationUrl(
-                          item.type + "s",
-                          item.title,
-                          item.id
-                        )}
+                      <div
+                        className="flex flex-col flex-[0.7] pl-5"
                         key={item.id}
                       >
-                        <div className="flex flex-col flex-[0.7] pl-5">
-                          <h1 className="text-2xl font-bold mb-5">
-                            Search Results for &quot;{query}&quot;
-                          </h1>
+                        <h1 className="text-2xl mb-5 lg:text-left text-center">
+                          Search Results for{" "}
+                          <span className="font-bold ">
+                            &quot;{query}&quot;
+                          </span>
+                        </h1>
+                        <Link
+                          href={getPublicationUrl(
+                            item.type + "s",
+                            item.title,
+                            item.id
+                          )}
+                        >
                           <li
                             key={item.id}
-                            className="flex flex-row mb-5 items-center hover:bg-gray-200 p-2.5 rounded-md"
+                            className="flex md:flex-row flex-col md:items-center mb-5 hover:bg-gray-200 p-2.5 rounded-md"
                           >
-                            <div className="relative w-[10vw] h-[10vh] bg-white mr-5">
+                            <div className="relative md:w-[10vw] w-full h-[10vh] bg-white mr-5">
                               <Image
                                 className="z-0 object-cover"
                                 src={
@@ -134,13 +141,13 @@ export default async function SearchResults({ searchParams }: SearchPageProps) {
                             </div>
                             <div>
                               <h2 className="font-semibold">{item.title}</h2>
-                              <p className="text-sm font-light w-[500px] truncate">
+                              <p className="text-sm font-light md:w-[500px] truncate">
                                 {item.description}
                               </p>
                             </div>
                           </li>
-                        </div>
-                      </Link>
+                        </Link>
+                      </div>
                     )
                 )}
               </ul>

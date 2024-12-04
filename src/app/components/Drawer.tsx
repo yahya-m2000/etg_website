@@ -62,32 +62,64 @@ const Drawer: React.FC<DrawerProps> = ({
           {/* Left Panel */}
           <div className="flex flex-col flex-[0.4] ">
             <div className="flex flex-col">
-              {["Insights", "Reports"].map((title) => (
-                <div
-                  key={title}
-                  className={`flex flex-row justify-between items-center px-10 md:px-20 py-5 
-        ${
-          hoveredType === title.toLowerCase().slice(0, -1)
-            ? "bg-gray-900"
-            : "hover:bg-gray-900 active:bg-gray-600"
-        }`}
-                  onMouseEnter={() =>
-                    setHoveredType(title.toLowerCase().slice(0, -1))
-                  }
-                >
-                  <h2 className="text-white text-xl font-inter font-light">
-                    {title}
-                  </h2>
-                  <ArrowRight02Icon size={ICON_SIZE} color="white" />
-                </div>
-              ))}
+              {["Insights", "Reports", "Projects", "Services", "Contact"].map(
+                (title) => {
+                  const lowerTitle = title.toLowerCase();
+                  const isClickable =
+                    lowerTitle === "services" || lowerTitle === "contact";
+
+                  return isClickable ? (
+                    <Link
+                      href={`/${lowerTitle}`}
+                      key={title}
+                      onMouseEnter={() => setHoveredType(null)}
+                    >
+                      <div
+                        className={`flex flex-row justify-between items-center px-10 md:px-20 py-5 
+            hover:bg-gray-900 active:bg-gray-600 group cursor-pointer`}
+                        // Clear hoveredType for clickable items
+                      >
+                        <h2 className="text-white text-xl font-inter font-light">
+                          {title}
+                        </h2>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div
+                      key={title}
+                      className={`flex flex-row justify-between items-center px-10 md:px-20 py-5 
+          ${
+            hoveredType === title.toLowerCase().slice(0, -1)
+              ? "bg-gray-900"
+              : "hover:bg-gray-900 active:bg-gray-800"
+          } group`}
+                      onMouseEnter={() =>
+                        setHoveredType(title.toLowerCase().slice(0, -1))
+                      }
+                    >
+                      <h2 className="text-white text-xl font-inter font-light">
+                        {title}
+                      </h2>
+                      <ArrowRight02Icon
+                        size={ICON_SIZE}
+                        color="white"
+                        className="transform group-hover:translate-x-2 transition-all duration-300"
+                      />
+                    </div>
+                  );
+                }
+              )}
             </div>
-            <div className="flex flex-col px-10 pd:mx-20 py-5 border-t-[1px] border-gray-700">
-              <Link href={"/about"} className="">
-                <h6 className="flex flex-row text-gray-300 font-extralight hover:text-white">
-                  About us
-                </h6>
-              </Link>
+
+            {/* About Us Section */}
+            <div className="flex flex-col md:px-20 px-10 pd:mx-20 py-5 border-t-[1px] border-gray-700">
+              {[{ label: "About us", href: "/about" }].map((link) => (
+                <Link key={link.href} href={link.href} className="mb-1.25">
+                  <h6 className="flex flex-row text-gray-300 font-extralight hover:text-white">
+                    {link.label}
+                  </h6>
+                </Link>
+              ))}
             </div>
           </div>
 

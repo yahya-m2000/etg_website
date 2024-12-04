@@ -12,6 +12,8 @@ export default function HeroImage({ insights }: { insights: Publications[] }) {
   const isHomePage = pathname === "/";
 
   useEffect(() => {
+    if (insights.length === 0) return;
+
     const intervalId = setInterval(() => {
       if (currentIndex < insights.length - 1) {
         setCurrentIndex(currentIndex + 1);
