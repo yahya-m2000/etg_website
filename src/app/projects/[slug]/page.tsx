@@ -29,7 +29,7 @@ export async function generateMetadata({
 
   if (!publication) {
     return {
-      title: "Insight Not Found",
+      title: "Project Not Found",
     };
   }
 
@@ -50,13 +50,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Insight({ params }: { params: Params }) {
+export default async function Project({ params }: { params: Params }) {
   const { slug } = await params; // Destructure slug from params
   const publication = await fetchPublication("publication", slug);
   const publicationsData = await fetchPublications("publication");
 
   if (!publication) {
-    return <div>404 - Insight not found</div>;
+    return <div>404 - Project not found</div>;
   }
 
   return (
