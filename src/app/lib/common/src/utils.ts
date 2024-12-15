@@ -65,6 +65,7 @@ export const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>, searchQue
 export const getPublicationUrl = (type: string, title: string, id: string) => {
   const kebabCaseTitle = title
     .toLowerCase()
+    .replace(/['’]/g, "")
     .replace(/[^a-zA-Z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 

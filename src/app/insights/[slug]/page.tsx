@@ -11,44 +11,44 @@ import {
 import { fetchPublication, fetchPublications } from "@/lib/api/src/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextRenderOptions } from "@/lib/common/src/ui/richTextRenderOptions";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 
 type Params = Promise<{
   slug: string;
 }>;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Params;
-}): Promise<Metadata> {
-  const { slug } = await params;
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: Params;
+// }): Promise<Metadata> {
+//   const { slug } = await params;
 
-  // Fetch the publication data to generate dynamic metadata
-  const publication = await fetchPublication("publication", slug);
+//   // Fetch the publication data to generate dynamic metadata
+//   const publication = await fetchPublication("publication", slug);
 
-  if (!publication) {
-    return {
-      title: "Insight Not Found",
-    };
-  }
+//   if (!publication) {
+//     return {
+//       title: "Insight Not Found",
+//     };
+//   }
 
-  const title =
-    typeof publication.title === "string" ? publication.title : "Default Title";
-  const description =
-    typeof publication.description === "string"
-      ? publication.description
-      : "No description available";
+//   const title =
+//     typeof publication.title === "string" ? publication.title : "Default Title";
+//   const description =
+//     typeof publication.description === "string"
+//       ? publication.description
+//       : "No description available";
 
-  return {
-    title,
-    openGraph: {
-      title,
-      description,
-      images: publication.heroImage ? [publication.heroImage] : [],
-    },
-  };
-}
+//   return {
+//     title,
+//     openGraph: {
+//       title,
+//       description,
+//       images: publication.heroImage ? [publication.heroImage] : [],
+//     },
+//   };
+// }
 
 export default async function Insight({ params }: { params: Params }) {
   const { slug } = await params; // Destructure slug from params
