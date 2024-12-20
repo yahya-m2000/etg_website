@@ -40,14 +40,30 @@ export async function generateMetadata({
       ? publication.description
       : "No description available";
 
+  const altText =
+    typeof publication.title === "string"
+      ? publication.title
+      : "Default Alt Text"; // Ensure alt is a string
+
   return {
     title,
     description,
     openGraph: {
       title,
+      siteName: "The Eastern Trade Group",
+      type: "article",
       description,
       url: `https://www.theeasterntradegroup.com/insights/${slug}`,
-      images: publication.heroImage ? [{ url: publication.heroImage }] : [],
+      images: publication.heroImage
+        ? [
+            {
+              url: publication.heroImage,
+              width: 1200,
+              height: 630,
+              alt: altText,
+            },
+          ]
+        : [],
     },
     twitter: {
       card: "summary_large_image",
