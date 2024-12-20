@@ -33,6 +33,21 @@ main {
 width: auto;
 }
 
+p sup {
+  font-size: 0.75rem; /* Tailwind's text-xs */
+  vertical-align: super;
+  margin: 0;
+  line-height: 1;
+}
+
+p sub {
+  font-size: 0.75rem; /* Tailwind's text-xs */
+  vertical-align: sub;
+  margin: 0;
+  line-height: 1;
+}
+
+
 
 
 

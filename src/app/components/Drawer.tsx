@@ -153,9 +153,9 @@ const Drawer: React.FC<DrawerProps> = ({
                   </div>
                   <div className="text-white">
                     <h6 className="font-bold text-lg">{item.title}</h6>
-                    <p className="text-sm font-light text-gray-600 uppercase">
+                    {/* <p className="text-sm font-light text-gray-600 uppercase">
                       {item.tags?.join(", ")}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </Link>

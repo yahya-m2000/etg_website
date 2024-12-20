@@ -1,4 +1,4 @@
-import { BLOCKS, Node, INLINES } from "@contentful/rich-text-types";
+import { BLOCKS, Node, INLINES, MARKS } from "@contentful/rich-text-types";
 import Image from "next/image";
 import React from "react";
 
@@ -22,7 +22,10 @@ export const richTextRenderOptions = {
     ),
 
     [BLOCKS.PARAGRAPH]: (_node: Node, children: React.ReactNode) => (
-      <p className="font-inter text-justify leading-relaxed text-foreground font-light mb-5">
+      <p
+        className="font-inter md:text-justify leading-relaxed text-foreground font-light mb-5 "
+        style={{ whiteSpace: "pre-wrap" }}
+      >
         {children}
       </p>
     ),
@@ -37,13 +40,12 @@ export const richTextRenderOptions = {
       <li className="mb-2">{children}</li>
     ),
 
+    [BLOCKS.HR]: () => <hr className="border-t-2 border-gray-300 my-10" />,
+
     [INLINES.HYPERLINK]: (node: Node, children: React.ReactNode) => {
       const { uri } = node.data;
       return (
-        <a
-          href={uri}
-          className="relative text-blue-600 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-left z-30"
-        >
+        <a href={uri} className="relative text-blue-600">
           {children}
         </a>
       );
@@ -55,18 +57,54 @@ export const richTextRenderOptions = {
     ),
     [BLOCKS.EMBEDDED_ASSET]: (node: Node) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { file, title } = (node.data.target as any).fields;
+      const { file, title, description } = (node.data.target as any).fields;
       return (
-        <div className="py-[1vh] flex md:w-[27vw] md:h-auto w-full h-[30vh] ">
+        <div className="my-[1vh] border-b-[1px] border-slate-300 flex  flex-col md:w-full h-[auto] w-full  ">
           <Image
             src={`https:${file.url}`}
-            alt={title}
+            alt={description || title || "Default alt text"}
             width={1000}
             height={1000}
-            className="rounded-md  object-cover"
+            className="object-cover"
           />
+          <p className="font-inter font-extralight italic text-sm md:text-justify leading-relaxed text-foreground m-1 ">
+            {description}
+          </p>
         </div>
       );
     },
+
+    // Default for inline styles (fallback)
+    [INLINES.EMBEDDED_ENTRY]: (_node: Node, children: React.ReactNode) => (
+      <span className="font-inter text-foreground">{children}</span>
+    ),
+  },
+  renderMark: {
+    [MARKS.BOLD]: (text: React.ReactNode) => (
+      <strong className="font-semibold">{text}</strong>
+    ),
+    [MARKS.ITALIC]: (text: React.ReactNode) => (
+      <em className="italic">{text}</em>
+    ),
+    [MARKS.UNDERLINE]: (text: React.ReactNode) => (
+      <span className="underline">{text}</span>
+    ),
+    [MARKS.CODE]: (text: React.ReactNode) => (
+      <code className="bg-gray-100 text-red-600 p-1 rounded">{text}</code>
+    ),
+    [MARKS.SUPERSCRIPT]: (text: React.ReactNode) => (
+      <sup className="[margin-bottom:0!important] [vertical-align:super!important] [font-size:0.75rem!important] [line-height:1!important]">
+        {text}
+      </sup>
+    ),
+    [MARKS.SUBSCRIPT]: (text: React.ReactNode) => (
+      <sub className="[margin-bottom:0!important] [vertical-align:sub!important] [font-size:0.75rem!important] [line-height:1!important]">
+        {text}
+      </sub>
+    ),
+
+    [MARKS.STRIKETHROUGH]: (text: React.ReactNode) => (
+      <del className="line-through">{text}</del>
+    ),
   },
 };

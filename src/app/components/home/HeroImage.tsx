@@ -107,15 +107,17 @@ export default function HeroImage({ insights }: { insights: Publications[] }) {
                   key={insight.id}
                 >
                   <h4
-                    className={`font-bitter font-extrabold text-5xl cursor-pointer  ${
+                    className={`font-bitter font-extrabold text-4xl lg:text-5xl cursor-pointer mb-2.5 mx-5 ${
                       isHomePage
-                        ? "mb-2.5 hover:underline"
-                        : "transition-opacity duration-500 text-center mb-2.5 "
+                        ? " hover:underline"
+                        : "transition-opacity duration-500 text-center"
                     }`}
                     style={{ opacity: !isHomePage ? calculateOpacity() : 1 }}
-                    onClick={() =>
-                      handleClick(insight.type + "s", insight.title)
-                    }
+                    onClick={() => {
+                      if (isHomePage) {
+                        handleClick(insight.type + "s", insight.title);
+                      }
+                    }}
                   >
                     {insight.title}
                   </h4>
