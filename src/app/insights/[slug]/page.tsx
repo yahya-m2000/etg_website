@@ -70,7 +70,7 @@ export async function generateMetadata({
       site: "https://www.theeasterntradegroup.com",
       title,
       description,
-      images: publication.heroImage ? publication.heroImage : [],
+      images: publication.heroImage ? [publication.heroImage] : [],
     },
   };
 }
