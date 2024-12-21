@@ -3,6 +3,13 @@ type Image = {
   url: string;
 };
 
+type Author = {
+  name: string;
+  role: string;
+  photo: Image;
+  bio: string;
+}
+
 type SEO = {
   title: string;
   description: string;
@@ -42,7 +49,7 @@ type Publications = {
   description?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: Document; // Rich Text Document from Contentful
-  author?: string; // Author name
+  author?: Author; // Author name
   date: string; // ISO date format (e.g., "2024-10-18")
   tags?: string[];
   region?: string[];

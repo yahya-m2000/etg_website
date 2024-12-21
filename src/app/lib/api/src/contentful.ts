@@ -62,6 +62,7 @@ export async function fetchPublication(contentType: string, slug: string) {
         "fields.translations",
         "fields.views",
       ],
+      include: 1,
     });
 
     if (entries.items.length > 0) {
@@ -82,6 +83,7 @@ export async function fetchPublication(contentType: string, slug: string) {
       const galleryImages = Array.isArray(fields.gallery)
         ? fields.gallery
             .filter(isAsset)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             .map((image) => `https:${image?.fields.file.url}`)
         : [];
@@ -90,12 +92,32 @@ export async function fetchPublication(contentType: string, slug: string) {
         ? `https:${fields.pdfDownload.fields.file?.url}`
         : null;
 
+          // Extract author details if available
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+      const author = fields.author?.fields
+      ? {// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+          name: fields.author.fields.name || "Undisclosed",
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+          role: fields.author.fields.role || "Employee at The Eastern Trade Group",
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+          photo: fields.author.fields.photo
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            ? `https:${fields.author.fields.photo.fields.file.url}`
+            : "/assets/image.png", // Fallback to default image
+        }
+      : null;
+
       return {
         id: item.sys.id,
         title: fields.title,
         description: fields.description || "",
         body: fields.body || "",
-        author: fields.author || [],
+        author, // Cleaned author object
         date: fields.date || "",
         tags: fields.tags || [],
         featured: fields.featured || false,

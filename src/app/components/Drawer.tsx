@@ -134,10 +134,10 @@ const Drawer: React.FC<DrawerProps> = ({
               >
                 <div
                   key={index}
-                  className="flex flex-row border-b-[1px] border-gray-700 p-5 hover:bg-gray-900 active:bg-gray-800 cursor-pointer"
+                  className="flex md:flex-row flex-col justify-center border-b-[1px] border-gray-700 p-5 hover:bg-gray-900 active:bg-gray-800 cursor-pointer"
                 >
-                  <div className="pr-5">
-                    <div className="relative w-[10vw] h-[10vh] bg-white">
+                  <div className="md:pr-5">
+                    <div className="relative md:w-[10vw] w-auto h-[100px]  bg-white">
                       <Image
                         className="z-0 object-cover"
                         src={

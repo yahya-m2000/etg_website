@@ -58,7 +58,7 @@ const HeaderParagraphImage = (props: Props) => {
 
   return (
     <div
-      className={`flex lg:h-[600px] h-[100vh] ${
+      className={`flex lg:h-[600px] h-[1000px] ${
         props.reversed ? "lg:flex-row" : "lg:flex-row-reverse"
       } flex-col-reverse lg:border-b-[0px] border-b-[10px] border-primary`}
     >
