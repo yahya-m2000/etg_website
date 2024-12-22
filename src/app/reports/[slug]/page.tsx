@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import HeroImage from "@/components/home/HeroImage";
 import Footer from "@/components/Footer";
 import React from "react";
 import {
@@ -65,24 +64,35 @@ export default async function Report({ params }: { params: Params }) {
         logo=""
         navItems={[""]}
         callToAction={["Learn More", "Get Started"]}
-        backgroundColor=""
-        textColor="white"
-        position="fixed"
-        effects={true}
+        backgroundColor="white"
+        textColor="black"
+        position="relative"
+        effects={false}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        data={publicationsData || []}
+        data={publicationsData}
       />
-      <div className="relative flex flex-col h-[100vh] justify-center">
+      {/* <div className="relative flex flex-col h-[100vh] justify-center">
         <HeroImage
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
           insights={[publication]}
         />
-      </div>
-      <main className="relative h-auto bg-white text-black">
-        <div className=" z-20 px-0 md:px-40 py-10 ">
-          <div className="flex flex-row py-5 text-slate-400 text-xs justify-center">
+      </div> */}
+      <main className="relative h-auto bg-white text-foreground">
+        <div className="flex flex-rowz-20 px-0 md:px-20 py-10 ">
+          {/* Render Rich Text */}
+          <div className="flex flex-col flex-[0.7]">
+            <h1 className="font-bitter text-5xl text-foreground mb-5">
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-expect-error */}
+              {publication.title}
+            </h1>
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+            {/* @ts-expect-error */}
+            {documentToReactComponents(publication.body, richTextRenderOptions)}
+          </div>
+          <div className="flex flex-row flex-[0.3] py-5 text-slate-400 text-xs justify-center">
             {/* Share Icon */}
             <div className="flex flex-col items-center mr-2.5">
               <Share08Icon size={18} className="mb-2.5" />
@@ -115,13 +125,8 @@ export default async function Report({ params }: { params: Params }) {
               <p className="">Save</p>
             </div>
           </div>
-          {/* Render Rich Text */}
-          <div className="">
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-            {/* @ts-expect-error */}
-            {documentToReactComponents(publication.body, richTextRenderOptions)}
-          </div>
         </div>
+
         <Footer />
       </main>
     </div>

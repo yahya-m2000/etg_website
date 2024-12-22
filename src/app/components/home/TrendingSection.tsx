@@ -11,7 +11,7 @@ const TrendingSection: React.FC<TrendingSectionProps> = ({ data }) => {
   return (
     <div
       className="z-20 flex flex-row absolute bottom-0 right-0 w-[100%]
-          bg-white text-black px-20 py-5"
+          bg-white text-foreground px-20 py-5"
     >
       <h6 className="text-lg font-bold mr-10">FEATURED</h6>
       {featuredData.map((item, index) => {

@@ -14,8 +14,8 @@ const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         className={`px-5 py-1 ${
           outline
-            ? `border-${color} border-b-2 text-${color} hover:bg-${color} hover:text-black `
-            : `text-black bg-${color}`
+            ? `border-${color} border-b-2 text-${color} hover:bg-${color} hover:text-foreground `
+            : `text-foreground bg-${color}`
         }  ${
           size === "small"
             ? "text-sm"

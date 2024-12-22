@@ -106,7 +106,7 @@ export default async function Insight({ params }: { params: Params }) {
           insights={[publication]}
         />
       </div>
-      <main className="relative h-auto bg-white text-black">
+      <main className="relative h-auto bg-white text-foreground">
         <div className="flex flex-col z-20 px-10 lg:px-80 py-10 ">
           {/* Render Rich Text */}
           <div className="">

@@ -95,7 +95,7 @@ const Header: React.FC<Props> = ({
             <h1
               className={`logo flex flex-col transition-all ${
                 scrolled && effects
-                  ? "text-base text-black"
+                  ? "text-base text-foreground"
                   : `text-${textColor}`
               }`}
             >

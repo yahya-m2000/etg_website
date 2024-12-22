@@ -80,7 +80,7 @@ export default async function Project({ params }: { params: Params }) {
           insights={[publication]}
         />
       </div>
-      <main className="relative h-auto bg-white text-black">
+      <main className="relative h-auto bg-white text-foreground">
         <div className="flex flex-col lg:flex-row z-20 px-10 lg:px-40 py-10 ">
           <div className="flex flex-col items-center py-5 lg:px-10">
             <div className="flex flex-row  text-slate-400 text-xs justify-center">
