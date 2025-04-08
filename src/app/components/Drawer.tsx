@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ArrowRight02Icon, Cancel01Icon, Search01Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation"; // Next.js 13+ App Router navigation
 import Image from "next/image";
@@ -22,16 +22,48 @@ const Drawer: React.FC<DrawerProps> = ({
 }) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const rightPanelRef = useRef<HTMLDivElement>(null);
 
+  // Handle search functionality when Enter is pressed
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchQuery.trim()) {
-      router.push(`/search/?query=${encodeURIComponent(searchQuery)}`);
-      handleDrawer(); // Close the drawer after redirect
+    if (e.key === "Enter" && searchQuery.trim() !== "") {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      handleDrawer(); // Close the drawer after search
     }
   };
 
+  // Prevent scroll propagation to parent elements
+  useEffect(() => {
+    const rightPanel = rightPanelRef.current;
+    if (!rightPanel) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // Check if scrolling is needed
+      const { scrollTop, scrollHeight, clientHeight } = rightPanel;
+
+      // Scrolling down and already at the bottom
+      if (e.deltaY > 0 && scrollTop + clientHeight >= scrollHeight) {
+        e.preventDefault();
+      }
+      // Scrolling up and already at the top
+      else if (e.deltaY < 0 && scrollTop <= 0) {
+        e.preventDefault();
+      }
+      // Otherwise, prevent scrolling from propagating to parent
+      else {
+        e.stopPropagation();
+      }
+    };
+
+    rightPanel.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      rightPanel.removeEventListener("wheel", handleWheel);
+    };
+  }, [hoveredType]); // Re-add event listener when hoveredType changes
+
   return (
-    <div>
+    <div className="fixed inset-0 z-50" onClick={(e) => e.stopPropagation()}>
       <div className="z-0 absolute inset-0 backdrop-blur-[2px] bg-black w-[100vw] h-[100vh] bg-opacity-50" />
       <div className="z-10 flex flex-col fixed top-0 left-0 md:w-[700px] w-full h-[100vh] bg-black">
         {/* Drawer Header */}
@@ -58,7 +90,7 @@ const Drawer: React.FC<DrawerProps> = ({
         </div>
 
         {/* Drawer Body */}
-        <div className="flex flex-1 flex-row">
+        <div className="flex flex-1 flex-row overflow-hidden">
           {/* Left Panel */}
           <div className="flex flex-col flex-[0.4] ">
             <div className="flex flex-col">
@@ -125,7 +157,13 @@ const Drawer: React.FC<DrawerProps> = ({
 
           {/* Right Panel */}
           <div
-            className={`flex flex-col flex-[0.6] border-l-[0.5px] border-gray-700 `}
+            ref={rightPanelRef}
+            className={`flex flex-col flex-[0.6] border-l-[0.5px] border-gray-700 overflow-y-auto max-h-[calc(100vh-80px)]`}
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(255, 255, 255, 0.3) transparent",
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
             {filteredData.map((item, index) => (
               <Link
