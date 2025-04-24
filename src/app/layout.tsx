@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 // import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import { assistant, barlowCondensed, bitter, inriaSerif } from "./fonts";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.theeasterntradegroup.com/"),
@@ -51,6 +52,7 @@ export default function RootLayout({
         className={`${assistant.variable} ${bitter.variable} ${inriaSerif.variable} ${barlowCondensed.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
